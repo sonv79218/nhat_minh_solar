@@ -1,0 +1,120 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ==================== BASE STYLES ==================== */
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply m-0 p-0 bg-slate-50 text-slate-700 antialiased;
+    overflow-x: hidden;
+  }
+
+  #root {
+    @apply flex flex-col min-h-screen;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold text-secondary;
+  }
+
+  a {
+    @apply no-underline;
+  }
+
+  button {
+    @apply cursor-pointer;
+  }
+}
+
+/* ==================== COMPONENT STYLES ==================== */
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 
+           bg-gradient-to-r from-primary-600 to-accent text-white 
+           font-semibold rounded-2xl shadow-lg
+           transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 
+           bg-white text-primary-600 font-semibold rounded-2xl 
+           border-2 border-primary-600
+           transition-all duration-200 hover:bg-primary-50;
+  }
+
+  .card {
+    @apply bg-white rounded-3xl p-6 shadow-soft;
+  }
+
+  .section-badge {
+    @apply inline-flex items-center gap-2 px-4 py-2 
+           bg-gradient-to-r from-primary-50 to-accent/10 
+           border border-primary-200/50 rounded-full
+           text-sm font-semibold text-primary-600;
+  }
+
+  .section-title {
+    @apply text-3xl md:text-4xl font-bold text-secondary tracking-tight;
+  }
+
+  .section-subtitle {
+    @apply text-base md:text-lg text-slate-500 max-w-2xl;
+  }
+}
+
+/* ==================== ANIMATIONS ==================== */
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease-out;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.3s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+/* ==========================================
+   Hide number input spinner
+   ========================================== */
+
+/* Chrome, Edge, Safari */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
