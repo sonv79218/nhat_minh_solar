@@ -1,4 +1,20 @@
 // ============================================
+// PRODUCTS & SERVICES SECTION
+import ProductsServicesSection from "@/features/home/components/common/ProductsServicesSection";
+
+// ============================================
+// PRICING SECTION
+import PricingSection from "@/features/home/components/pricing/PricingSection";
+
+// ============================================
+// COMPANY INTRODUCTION SECTION
+import CompanyIntroductionSection from "@/features/home/components/common/CompanyIntroductionSection";
+
+// ============================================
+// PROJECTS SECTION
+import { ProjectsSection } from "@/features/home/components";
+
+// ============================================
 // HOME PAGE - ĐIỆN MẶT TRỜI NHẬT MINH
 // Full landing page with hero, stats, services, products, process, CTA
 // ============================================
@@ -504,138 +520,138 @@ const ProcessSection = () => {
 // ============================================
 // PRODUCTS SHOWCASE
 // ============================================
-const ProductsSection = () => {
-  const products = [
-    {
-      name: "Tấm pin Canadian Solar 550W",
-      type: "Tấm pin mặt trời",
-      warranty: "Bảo hành 12 năm",
-      efficiency: "Hiệu suất 21.5%",
-      badge: "Bán chạy",
-      color: "amber",
-      image:
-        "https://images.unsplash.com/photo-1595437193398-f24279553f4f?w=600&q=80",
-    },
-    {
-      name: "Inverter Huawei SUN2000 8KTL",
-      type: "Bộ biến tần",
-      warranty: "Bảo hành 10 năm",
-      efficiency: "Hiệu suất 98.4%",
-      badge: "Cao cấp",
-      color: "blue",
-      image:
-        "https://images.unsplash.com/photo-1558449028-b53a39d100fc?w=600&q=80",
-    },
-    {
-      name: "Pin lưu trữ Pylontech US5000",
-      type: "Pin lưu trữ Lithium",
-      warranty: "Bảo hành 10 năm",
-      efficiency: "Dung lượng 4.8kWh",
-      badge: "Hybrid",
-      color: "purple",
-      image:
-        "https://images.unsplash.com/photo-1601805-2650-18d1e12f5e7e?w=600&q=80",
-    },
-    {
-      name: "Giàn giá lắp đặt AustSolar",
-      type: "Phụ kiện lắp đặt",
-      warranty: "Bảo hành 5 năm",
-      efficiency: "Chống gỉ sét tối đa",
-      badge: "Phụ kiện",
-      color: "emerald",
-      image:
-        "https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=600&q=80",
-    },
-  ];
+// const ProductsSection = () => {
+//   const products = [
+//     {
+//       name: "Tấm pin Canadian Solar 550W",
+//       type: "Tấm pin mặt trời",
+//       warranty: "Bảo hành 12 năm",
+//       efficiency: "Hiệu suất 21.5%",
+//       badge: "Bán chạy",
+//       color: "amber",
+//       image:
+//         "https://images.unsplash.com/photo-1595437193398-f24279553f4f?w=600&q=80",
+//     },
+//     {
+//       name: "Inverter Huawei SUN2000 8KTL",
+//       type: "Bộ biến tần",
+//       warranty: "Bảo hành 10 năm",
+//       efficiency: "Hiệu suất 98.4%",
+//       badge: "Cao cấp",
+//       color: "blue",
+//       image:
+//         "https://images.unsplash.com/photo-1558449028-b53a39d100fc?w=600&q=80",
+//     },
+//     {
+//       name: "Pin lưu trữ Pylontech US5000",
+//       type: "Pin lưu trữ Lithium",
+//       warranty: "Bảo hành 10 năm",
+//       efficiency: "Dung lượng 4.8kWh",
+//       badge: "Hybrid",
+//       color: "purple",
+//       image:
+//         "https://images.unsplash.com/photo-1601805-2650-18d1e12f5e7e?w=600&q=80",
+//     },
+//     {
+//       name: "Giàn giá lắp đặt AustSolar",
+//       type: "Phụ kiện lắp đặt",
+//       warranty: "Bảo hành 5 năm",
+//       efficiency: "Chống gỉ sét tối đa",
+//       badge: "Phụ kiện",
+//       color: "emerald",
+//       image:
+//         "https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=600&q=80",
+//     },
+//   ];
 
-  const colorMap = {
-    amber: { icon: "text-amber-600", badge: "bg-amber-100 text-amber-700" },
-    blue: { icon: "text-blue-600", badge: "bg-blue-100 text-blue-700" },
-    purple: { icon: "text-purple-600", badge: "bg-purple-100 text-purple-700" },
-    emerald: { icon: "text-emerald-600", badge: "bg-emerald-100 text-emerald-700" },
-  };
+//   const colorMap = {
+//     amber: { icon: "text-amber-600", badge: "bg-amber-100 text-amber-700" },
+//     blue: { icon: "text-blue-600", badge: "bg-blue-100 text-blue-700" },
+//     purple: { icon: "text-purple-600", badge: "bg-purple-100 text-purple-700" },
+//     emerald: { icon: "text-emerald-600", badge: "bg-emerald-100 text-emerald-700" },
+//   };
 
-  return (
-    <section className="py-16 sm:py-20 md:py-24 bg-slate-50">
-      <div className="w-full max-w-[1200px] mx-auto px-4 sm:px-6">
-        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-12 md:mb-16">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.15em] text-amber-600 mb-3">
-              Thiết bị chính hãng
-            </p>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 leading-tight">
-              Sản phẩm nổi bật
-            </h2>
-          </div>
-          <a
-            href="/products"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-amber-600 hover:text-amber-700 transition-colors shrink-0"
-          >
-            <span>Xem tất cả sản phẩm</span>
-            <ArrowRight size={16} />
-          </a>
-        </div>
+//   return (
+//     <section className="py-16 sm:py-20 md:py-24 bg-slate-50">
+//       <div className="w-full max-w-[1200px] mx-auto px-4 sm:px-6">
+//         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-12 md:mb-16">
+//           <div>
+//             <p className="text-xs font-semibold uppercase tracking-[0.15em] text-amber-600 mb-3">
+//               Thiết bị chính hãng
+//             </p>
+//             <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 leading-tight">
+//               Sản phẩm nổi bật
+//             </h2>
+//           </div>
+//           <a
+//             href="/products"
+//             className="inline-flex items-center gap-2 text-sm font-semibold text-amber-600 hover:text-amber-700 transition-colors shrink-0"
+//           >
+//             <span>Xem tất cả sản phẩm</span>
+//             <ArrowRight size={16} />
+//           </a>
+//         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
-          {products.map((product, index) => {
-            const colors = colorMap[product.color];
-            return (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
-                className="group rounded-2xl bg-white border border-slate-100 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
-              >
-                <div className="relative h-48 overflow-hidden bg-slate-100">
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <span
-                    className={`absolute top-3 left-3 text-[10px] font-bold uppercase tracking-wide px-2.5 py-1 rounded-full ${colors.badge}`}
-                  >
-                    {product.badge}
-                  </span>
-                </div>
+//         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
+//           {products.map((product, index) => {
+//             const colors = colorMap[product.color];
+//             return (
+//               <motion.div
+//                 key={index}
+//                 initial={{ opacity: 0, y: 20 }}
+//                 whileInView={{ opacity: 1, y: 0 }}
+//                 viewport={{ once: true }}
+//                 transition={{ duration: 0.4, delay: index * 0.1 }}
+//                 className="group rounded-2xl bg-white border border-slate-100 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+//               >
+//                 <div className="relative h-48 overflow-hidden bg-slate-100">
+//                   <img
+//                     src={product.image}
+//                     alt={product.name}
+//                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+//                   />
+//                   <span
+//                     className={`absolute top-3 left-3 text-[10px] font-bold uppercase tracking-wide px-2.5 py-1 rounded-full ${colors.badge}`}
+//                   >
+//                     {product.badge}
+//                   </span>
+//                 </div>
 
-                <div className="p-5">
-                  <p className="text-[11px] font-semibold uppercase tracking-wide text-slate-400 mb-1.5">
-                    {product.type}
-                  </p>
-                  <h3 className="text-sm font-bold text-slate-900 leading-snug mb-3">
-                    {product.name}
-                  </h3>
+//                 <div className="p-5">
+//                   <p className="text-[11px] font-semibold uppercase tracking-wide text-slate-400 mb-1.5">
+//                     {product.type}
+//                   </p>
+//                   <h3 className="text-sm font-bold text-slate-900 leading-snug mb-3">
+//                     {product.name}
+//                   </h3>
 
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    <span className="inline-flex items-center gap-1 text-[11px] text-slate-500 bg-slate-50 px-2 py-1 rounded-md">
-                      <ShieldCheck size={11} />
-                      {product.warranty}
-                    </span>
-                    <span className="inline-flex items-center gap-1 text-[11px] text-slate-500 bg-slate-50 px-2 py-1 rounded-md">
-                      <Zap size={11} />
-                      {product.efficiency}
-                    </span>
-                  </div>
+//                   <div className="flex flex-wrap gap-2 mb-4">
+//                     <span className="inline-flex items-center gap-1 text-[11px] text-slate-500 bg-slate-50 px-2 py-1 rounded-md">
+//                       <ShieldCheck size={11} />
+//                       {product.warranty}
+//                     </span>
+//                     <span className="inline-flex items-center gap-1 text-[11px] text-slate-500 bg-slate-50 px-2 py-1 rounded-md">
+//                       <Zap size={11} />
+//                       {product.efficiency}
+//                     </span>
+//                   </div>
 
-                  <a
-                    href="tel:0876906668"
-                    className="inline-flex items-center justify-center w-full gap-2 bg-slate-900 hover:bg-amber-600 text-white text-sm font-semibold py-2.5 rounded-xl transition-colors duration-300"
-                  >
-                    <Phone size={15} />
-                    <span>Liên hệ báo giá</span>
-                  </a>
-                </div>
-              </motion.div>
-            );
-          })}
-        </div>
-      </div>
-    </section>
-  );
-};
+//                   <a
+//                     href="tel:0876906668"
+//                     className="inline-flex items-center justify-center w-full gap-2 bg-slate-900 hover:bg-amber-600 text-white text-sm font-semibold py-2.5 rounded-xl transition-colors duration-300"
+//                   >
+//                     <Phone size={15} />
+//                     <span>Liên hệ báo giá</span>
+//                   </a>
+//                 </div>
+//               </motion.div>
+//             );
+//           })}
+//         </div>
+//       </div>
+//     </section>
+//   );
+// };
 
 // ============================================
 // TESTIMONIALS SECTION
@@ -891,17 +907,31 @@ const HomePage = () => {
       {/* Stats Bar */}
       <StatsBar />
 
+      {/* Company Introduction */}
+      <CompanyIntroductionSection />
+
+
+
+            {/* Products */}
+      {/* <ProductsSection /> */}
+
+      {/* Projects */}
+      {/* <ProjectsSection /> */}
       {/* Why Solar */}
       <WhySolarSection />
 
+      {/* Pricing Section */}
+      <PricingSection />
       {/* Services */}
-      <ServicesSection />
+      {/* <ServicesSection /> */}
+
+      {/* Products & Services Grid */}
+      {/* <ProductsServicesSection /> */}
 
       {/* Process */}
       <ProcessSection />
 
-      {/* Products */}
-      <ProductsSection />
+
 
       {/* Testimonials */}
       <TestimonialsSection />

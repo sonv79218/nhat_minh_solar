@@ -5,8 +5,8 @@
 // ============================================
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import CategoryCard from "./CategoryCard";
-import { CategoryGridSkeleton } from "./SectionSkeletons";
+import CategoryCard from "@/features/home/components/category/CategoryCard";
+import { CategoryGridSkeleton } from "@/features/home/components/category/SectionSkeletons";
 
 const CategoryGridSection = ({ categories, isLoading }) => {
   const [isMobile, setIsMobile] = useState(false);

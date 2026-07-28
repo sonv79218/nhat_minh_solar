@@ -9,7 +9,7 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
-import { auth, db } from "../config/firebase";
+import { auth, db } from "@/services/firebase";
 
 const AuthContext = createContext(null);
 

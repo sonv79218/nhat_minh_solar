@@ -2,7 +2,7 @@
 // FEATURED PRODUCTS SECTION - TAILWIND
 // ============================================
 import { Link } from "react-router-dom";
-import ProductCard from "./ProductCard";
+import ProductCard from "@/features/home/components/category/ProductCard";
 
 const Skeleton = () => (
   <div className="bg-white rounded-xl overflow-hidden border border-slate-100">

@@ -2,7 +2,7 @@
 // USE OFFLINE MODE - Hook to detect offline/fallback mode
 // ============================================
 import { useState, useEffect, useCallback } from "react";
-import { isOnline } from "../services/fallbackService";
+import { isOnline } from "@/services/fallbackService";
 
 const useOfflineMode = () => {
   const [offlineMode, setOfflineMode] = useState(false);

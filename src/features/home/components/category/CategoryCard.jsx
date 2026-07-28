@@ -3,7 +3,7 @@
 // Compact Smart Home E-commerce Style
 // ============================================
 import { useNavigate } from "react-router-dom";
-import { getCategoryIcon } from "./categoryIcons";
+import { getCategoryIcon } from "@/features/home/components/category/categoryIcons";
 
 const CategoryCard = ({ category }) => {
   const navigate = useNavigate();

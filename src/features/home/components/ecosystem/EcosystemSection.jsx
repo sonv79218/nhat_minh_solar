@@ -1,8 +1,8 @@
 // ============================================
 // ECOSYSTEM SECTION - UNIFIED DESIGN SYSTEM
 // ============================================
-import EcosystemCard from "./EcosystemCard";
-import EcosystemMobileTabs from "./EcosystemMobileTabs";
+import EcosystemCard from "@/features/home/components/ecosystem/EcosystemCard";
+import EcosystemMobileTabs from "@/features/home/components/ecosystem/EcosystemMobileTabs";
 
 const ecosystems = [
   {

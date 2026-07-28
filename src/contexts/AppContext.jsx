@@ -2,7 +2,7 @@
 // APP CONTEXT - Global App State including Offline Mode
 // ============================================
 import { createContext, useContext, useState, useEffect, useCallback } from "react";
-import { isOnline } from "../services/fallbackService.js";
+import { isOnline } from "@/services/fallbackService";
 
 const AppContext = createContext(null);
 

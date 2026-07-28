@@ -2,7 +2,7 @@
 // CATEGORY PRODUCT SECTION - UNIFIED DESIGN SYSTEM
 // ============================================
 import { useState, useMemo } from "react";
-import ProductCard from "./ProductCard";
+import ProductCard from "@/features/home/components/category/ProductCard";
 
 const PRODUCTS_PER_PAGE = 8;
 

@@ -3,7 +3,7 @@
 // Display grid of smart home solutions
 // ============================================
 import { useState, useEffect } from "react";
-import SolutionCard from "./SolutionCard";
+import SolutionCard from "@/features/home/components/solution/SolutionCard";
 import { getActiveSolutions } from "@/services/solutionService";
 import { SolutionGridSkeleton } from "@/features/home/components/category/SectionSkeletons";
 
