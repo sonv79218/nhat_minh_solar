@@ -69,7 +69,7 @@ const CategoryCard = ({ cat, index }) => (
 );
 
 const SolutionsPage = () => (
-  <MainLayout>
+  <>
     {/* ── Hero strip ── */}
     <section className="w-full bg-[#0b1628] pt-12 pb-10">
       <div className="w-full max-w-[1200px] mx-auto px-4 sm:px-6">
@@ -161,7 +161,7 @@ const SolutionsPage = () => (
         </div>
       </div>
     </section>
-  </MainLayout>
+  </>
 );
 
 export default SolutionsPage;

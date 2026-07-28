@@ -8,7 +8,7 @@ import { TYPOGRAPHY } from "@/styles/designSystem";
 const CLOSE_DELAY_MS = 150;
 
 const solutionItems = [
-  // { label: "Tất cả giải pháp", href: "/solutions" },
+  { label: "Tất cả giải pháp", href: "/solutions" },
   { label: "Điện mặt trời gia đình", href: "/solutions/solar-home" },
   { label: "Điện mặt trời doanh nghiệp", href: "/solutions/solar-business" },
   { label: "Điện mặt trời trang trại", href: "/solutions/solar-farm" },
