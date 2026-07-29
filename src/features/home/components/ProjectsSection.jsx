@@ -7,6 +7,7 @@ import { useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { Link } from "react-router-dom";
 import { MapPin, ArrowRight, Zap, LayoutGrid, Home, Building2, Warehouse } from "lucide-react";
+import SectionEyebrow from "@/features/home/components/common/SectionEyebrow";
 
 // ============================================
 // MOCK PROJECT DATA (solar energy themed)
@@ -178,10 +179,8 @@ const ProjectsSection = () => {
           className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10 md:mb-14"
         >
           <div>
-            <div className="inline-flex items-center gap-2 bg-green-500/10 border border-green-500/30 text-green-400 text-xs font-semibold px-4 py-1.5 rounded-full mb-4">
-              <LayoutGrid size={13} />
-              <span>Dự án của chúng tôi</span>
-            </div>
+            <SectionEyebrow label="Quy trình triển khai" className="mb-4" />
+
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white leading-tight">
               Những công trình đã hoàn thành
             </h2>

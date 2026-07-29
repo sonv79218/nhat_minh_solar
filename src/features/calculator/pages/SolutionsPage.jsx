@@ -70,42 +70,6 @@ const CategoryCard = ({ cat, index }) => (
 
 const SolutionsPage = () => (
   <>
-    {/* ── Hero strip ── */}
-    <section className="w-full bg-[#0b1628] pt-12 pb-10">
-      <div className="w-full max-w-[1200px] mx-auto px-4 sm:px-6">
-        <div className="max-w-2xl">
-          <div className="inline-flex items-center gap-2 bg-green-500/10 border border-green-500/30 text-green-400 text-xs font-semibold px-3 py-1.5 rounded-full mb-4">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
-            </svg>
-            <span>Giải pháp</span>
-          </div>
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white leading-tight mb-3">
-            Chọn giải pháp<br />
-            <span className="text-green-400">điện mặt trời phù hợp</span>
-          </h1>
-          <p className="text-sm text-white/50 leading-relaxed max-w-lg">
-            Từ hệ thống cho gia đình nhỏ đến dự án công nghiệp — Nhật Minh cung cấp đầy đủ giải pháp năng lượng sạch cho mọi nhu cầu.
-          </p>
-        </div>
-
-        {/* Stats row */}
-        <div className="flex flex-wrap gap-6 mt-8">
-          {[
-            { val: "15+", label: "Gói giải pháp" },
-            { val: "5+ năm", label: "Kinh nghiệm" },
-            { val: "500+", label: "Công trình" },
-            { val: "24/7", label: "Hỗ trợ" },
-          ].map(({ val, label }) => (
-            <div key={label} className="flex items-center gap-2">
-              <span className="text-lg font-extrabold text-green-400">{val}</span>
-              <span className="text-sm text-white/40">{label}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-
     {/* ── Category cards ── */}
     <section className="w-full bg-slate-50 py-12 sm:py-16">
       <div className="w-full max-w-[1200px] mx-auto px-4 sm:px-6">

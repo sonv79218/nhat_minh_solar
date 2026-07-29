@@ -15,6 +15,7 @@ import {
   Phone,
   BarChart3,
 } from "lucide-react";
+import SectionEyebrow from "./SectionEyebrow";
 
 const ProductsServicesSection = () => {
   const items = [
@@ -80,10 +81,7 @@ const ProductsServicesSection = () => {
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10 md:mb-14">
           <div>
-            <div className="inline-flex items-center gap-2 bg-green-500/10 border border-green-500/30 text-green-400 text-xs font-semibold px-4 py-1.5 rounded-full mb-4">
-              <LayoutGrid size={13} />
-              <span>Sản phẩm & Dịch vụ</span>
-            </div>
+            <SectionEyebrow label="Lợi ích" className="mb-4" />
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white leading-tight">
               Sản phẩm & Dịch vụ
             </h2>

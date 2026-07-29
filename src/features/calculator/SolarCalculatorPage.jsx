@@ -79,56 +79,7 @@ export default function SolarCalculatorPage() {
 
   return (
     <MainLayout>
-      {/* ─── Dark navy hero strip ─── */}
-      <section className="w-full bg-[#0b1628] pt-12 pb-10">
-        <div className="w-full max-w-[1200px] mx-auto px-4 sm:px-6">
-          {/* Back link */}
-          <Link
-            to="/"
-            className="inline-flex items-center gap-1.5 text-xs text-white/40 hover:text-white/70 transition-colors mb-6"
-          >
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-              <path d="M10 12L6 8l4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-            Trang chủ
-          </Link>
 
-          <div className="flex items-start justify-between gap-6">
-            {/* Left: text */}
-            <div>
-              <div className="inline-flex items-center gap-2 bg-green-500/10 border border-green-500/30 text-green-400 text-xs font-semibold px-3 py-1.5 rounded-full mb-4">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <circle cx="12" cy="12" r="5"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
-                </svg>
-                <span>Công cụ tính toán</span>
-              </div>
-              <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white leading-tight">
-                Tính giải pháp<br />
-                <span className="text-green-400">điện mặt trời phù hợp</span>
-              </h1>
-              <p className="mt-3 text-sm text-white/50 max-w-lg leading-relaxed">
-                Trả lời 5 câu hỏi đơn giản để nhận đề xuất công suất, chi phí và thời gian hoàn vốn dự kiến cho công trình của bạn.
-              </p>
-            </div>
-
-            {/* Right: mini stats */}
-            {!showResult && (
-              <div className="hidden md:flex flex-col gap-2 shrink-0">
-                {[
-                  { val: "< 5 phút", label: "Thời gian" },
-                  { val: "3 bước", label: "Đơn giản" },
-                  { val: "Miễn phí", label: "100%" },
-                ].map(({ val, label }) => (
-                  <div key={label} className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-lg px-4 py-2.5">
-                    <span className="text-sm font-bold text-green-400">{val}</span>
-                    <span className="text-xs text-white/40">{label}</span>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
-      </section>
 
       {/* ─── Progress bar strip ─── */}
       {!showResult && (

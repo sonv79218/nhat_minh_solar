@@ -1,4 +1,9 @@
 // ============================================
+// BRANDS SECTION
+import BrandsSection from "@/features/home/components/BrandsSection";
+import SectionEyebrow from "@/features/home/components/common/SectionEyebrow";
+
+// ============================================
 // PRODUCTS & SERVICES SECTION
 import ProductsServicesSection from "@/features/home/components/common/ProductsServicesSection";
 
@@ -26,8 +31,6 @@ import {
   ShieldCheck,
   Clock,
   Sun,
-  Users,
-  Award,
   Phone,
   ArrowRight,
   CheckCircle2,
@@ -78,7 +81,8 @@ const HeroSection = () => {
   const handleSlideChange = (index) => setCurrentSlide(index);
 
   return (
-    <section className="relative w-full h-[480px] sm:h-[560px] md:h-[620px] lg:h-[700px] overflow-hidden">
+    // <section className="relative w-full h-[480px] sm:h-[560px] md:h-[620px] lg:h-[700px] overflow-hidden">
+    <section className="relative w-full h-[260px] sm:h-[320px] md:h-[400px] lg:h-[480px] xl:h-[520px] overflow-hidden">
       {/* Slides */}
       {slides.map((slide, index) => (
         <div
@@ -90,14 +94,16 @@ const HeroSection = () => {
           <img
             src={slide.image}
             alt={slide.title}
-            className="w-full h-full object-cover object-center"
+            className="absolute inset-0 w-full h-full object-cover object-center"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-900/85 via-slate-900/50 to-transparent" />
         </div>
       ))}
 
+      {/* Shared overlay */}
+      <div className="absolute inset-0 bg-gradient-to-r from-slate-900/75 via-slate-900/45 to-transparent z-[2]" />
+
       {/* Content */}
-      <div className="relative z-10 flex items-center h-full">
+      <div className="relative z-[3] flex items-center h-full">
         <div className="w-full max-w-[1200px] mx-auto px-4 sm:px-6">
           <motion.div
             key={currentSlide}
@@ -106,12 +112,13 @@ const HeroSection = () => {
             transition={{ duration: 0.7, ease: "easeOut" }}
             className="max-w-2xl"
           >
-            <div className="inline-flex items-center gap-2 bg-amber-500/20 border border-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-full mb-5">
+            <div className="hidden sm:inline-flex items-center gap-2 bg-amber-500/20 border border-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-full mb-3 md:mb-5">
+            {/* <div className="inline-flex items-center gap-2 bg-amber-500/20 border border-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-full mb-5"> */}
               <Sun size={13} />
               <span>Điện Mặt Trời Từ Sơn, Bắc Ninh</span>
             </div>
 
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[58px] font-extrabold text-white leading-tight tracking-tight mb-4">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[56px] font-extrabold text-white leading-tight tracking-tight mb-2 md:mb-4">
               {slides[currentSlide].title
                 .split(" ")
                 .map((word, i, arr) => {
@@ -138,15 +145,16 @@ const HeroSection = () => {
                 })}
             </h1>
 
-            <p className="text-base sm:text-lg text-white/80 leading-relaxed mb-2 max-w-lg">
+            <p className="text-sm sm:text-base md:text-lg text-white/80 leading-relaxed mb-2 max-w-[560px]">
               {slides[currentSlide].subtitle}
             </p>
 
-            <p className="text-sm sm:text-base text-white/60 leading-relaxed mb-8 max-w-lg hidden md:block">
+            <p className="text-sm sm:text-base md:text-lg text-white/80 leading-relaxed mb-8 max-w-[560px] hidden md:block">
               {slides[currentSlide].description}
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+            {/* <div className="flex flex-col sm:flex-row gap-3 sm:gap-4"> */}
+            <div className="flex flex-row flex-wrap gap-2 sm:gap-4">
               <a
                 href="tel:0876906668"
                 className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-semibold px-6 py-3.5 rounded-xl shadow-lg shadow-amber-500/25 transition-all duration-300 hover:-translate-y-0.5"
@@ -167,7 +175,8 @@ const HeroSection = () => {
       </div>
 
       {/* Dots */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-2.5">
+      {/* <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-2.5"> */}
+      <div className="absolute bottom-3 md:bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-2 md:gap-2.5">
         {slides.map((_, index) => (
           <button
             key={index}
@@ -228,6 +237,10 @@ const StatsBar = () => {
 };
 
 // ============================================
+// BRANDS SECTION
+// ============================================
+
+// ============================================
 // WHY SOLAR SECTION
 // ============================================
 const WhySolarSection = () => {
@@ -267,20 +280,9 @@ const WhySolarSection = () => {
   ];
 
   return (
-    <section className="py-16 sm:py-20 md:py-24 bg-white">
+    <section className="py-10 sm:py-10 md:py-10 bg-white">
       <div className="w-full max-w-[1200px] mx-auto px-4 sm:px-6">
-        <div className="text-center mb-12 md:mb-16">
-          <p className="text-xs font-semibold uppercase tracking-[0.15em] text-amber-600 mb-3">
-            Tại sao chọn điện mặt trời
-          </p>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 leading-tight">
-            Lợi ích khi lắp đặt điện mặt trời
-          </h2>
-          <p className="mt-4 text-base text-slate-500 max-w-2xl mx-auto">
-            Năng lượng mặt trời là xu hướng tất yếu — tiết kiệm chi phí, bảo vệ
-            môi trường và tăng giá trị bất động sản.
-          </p>
-        </div>
+        <SectionEyebrow label="Tại sao chọn điện mặt trời" className="mb-8 md:mb-10" />
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
           {benefits.map((item, index) => {
@@ -462,18 +464,8 @@ const ProcessSection = () => {
   return (
     <section className="py-16 sm:py-20 md:py-24 bg-white">
       <div className="w-full max-w-[1200px] mx-auto px-4 sm:px-6">
-        <div className="text-center mb-12 md:mb-16">
-          <p className="text-xs font-semibold uppercase tracking-[0.15em] text-amber-600 mb-3">
-            Quy trình chuyên nghiệp
-          </p>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 leading-tight">
-            4 bước lắp đặt điện mặt trời
-          </h2>
-          <p className="mt-4 text-base text-slate-500 max-w-2xl mx-auto">
-            Quy trình rõ ràng, minh bạch từ đầu đến cuối. Cam kết đúng tiến độ
-            và chất lượng.
-          </p>
-        </div>
+
+        <SectionEyebrow label="Quy trình chuyên nghiệp" className="mb-8 md:mb-10" />
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
           {steps.map((step, index) => {
@@ -687,14 +679,7 @@ const TestimonialsSection = () => {
   return (
     <section className="py-16 sm:py-20 md:py-24 bg-white">
       <div className="w-full max-w-[1200px] mx-auto px-4 sm:px-6">
-        <div className="text-center mb-12 md:mb-16">
-          <p className="text-xs font-semibold uppercase tracking-[0.15em] text-amber-600 mb-3">
-            Khách hàng nói gì về chúng tôi
-          </p>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 leading-tight">
-            Đánh giá từ khách hàng
-          </h2>
-        </div>
+ <SectionEyebrow label="Đánh giá từ khách hàng" className="mb-8 md:mb-10" />
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {testimonials.map((item, index) => (
@@ -907,10 +892,13 @@ const HomePage = () => {
       {/* Stats Bar */}
       <StatsBar />
 
+
+
       {/* Company Introduction */}
       <CompanyIntroductionSection />
 
-
+      {/* Brands */}
+      <BrandsSection />
 
             {/* Products */}
       {/* <ProductsSection /> */}

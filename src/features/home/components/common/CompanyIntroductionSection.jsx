@@ -5,6 +5,7 @@
 // ============================================
 import { motion } from "framer-motion";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
+import SectionEyebrow from "./SectionEyebrow";
 
 const CompanyIntroductionSection = () => {
   const highlights = [
@@ -17,6 +18,8 @@ const CompanyIntroductionSection = () => {
   return (
     <section className="py-16 sm:py-20 md:py-28 bg-white overflow-hidden">
       <div className="w-full max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8">
+                  {/* Eyebrow */}
+            <SectionEyebrow label="Về chúng tôi" className="mb-6" />
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Left: Image */}
           <motion.div
@@ -31,7 +34,7 @@ const CompanyIntroductionSection = () => {
               <img
                 src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=800&q=80"
                 alt="Điện mặt trời Nhật Minh - Lắp đặt hệ thống"
-                className="w-full h-[340px] sm:h-[420px] object-cover"
+                className="w-full h-[380px] sm:h-[450px] lg:h-[550px] object-cover"
               />
               {/* Overlay gradient */}
               <div className="absolute inset-0 bg-gradient-to-t from-[#0b1628]/30 to-transparent" />
@@ -58,11 +61,8 @@ const CompanyIntroductionSection = () => {
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.7, ease: "easeOut" }}
           >
-            {/* Badge */}
-            <div className="inline-flex items-center gap-2 bg-green-500/10 border border-green-500/30 text-green-400 text-xs font-semibold px-4 py-1.5 rounded-full mb-5">
-              <span className="w-1.5 h-1.5 rounded-full bg-green-400" />
-              <span>Về chúng tôi</span>
-            </div>
+
+
 
             {/* Title */}
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#0f1b2d] leading-tight mb-6">

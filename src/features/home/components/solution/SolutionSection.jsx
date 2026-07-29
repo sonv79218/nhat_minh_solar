@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import SolutionCard from "@/features/home/components/solution/SolutionCard";
 import { getActiveSolutions } from "@/services/solutionService";
 import { SolutionGridSkeleton } from "@/features/home/components/category/SectionSkeletons";
+import SectionEyebrow from "@/features/home/components/common/SectionEyebrow";
 
 const SolutionSection = ({ solutions: propSolutions, isLoading: externalLoading }) => {
   const [solutions, setSolutions] = useState([]);
@@ -38,6 +39,8 @@ const SolutionSection = ({ solutions: propSolutions, isLoading: externalLoading 
   return (
     <div className="w-full py-12 md:py-16 bg-white">
       <div className="w-full max-w-[1200px] mx-auto px-4 md:px-6">
+        <SectionEyebrow label="Giải pháp" className="mb-5" />
+
         {/* Section Heading */}
         <h2 className="text-2xl md:text-3xl font-bold leading-tight text-slate-900 text-center mb-10">
           Giải pháp nhà thông minh

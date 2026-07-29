@@ -38,6 +38,7 @@ export { default as ContactSection } from "@/features/home/components/contact/Co
 // Common components
 export { default as FeaturesBar } from "@/features/home/components/common/FeaturesBar";
 export { default as SectionDivider } from "@/features/home/components/common/SectionDivider";
+export { default as BrandsSection } from "@/features/home/components/BrandsSection";
 
 // Section skeletons
 export {

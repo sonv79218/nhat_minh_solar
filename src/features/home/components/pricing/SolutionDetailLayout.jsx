@@ -102,60 +102,59 @@ const SolutionDetailLayout = ({
   return (
     <MainLayout>
       {/* ── Hero banner ── */}
-      <section className="relative w-full overflow-hidden" style={{ minHeight: "360px" }}>
+      <section className="relative w-full overflow-hidden h-[260px] sm:h-[320px] md:h-[400px] lg:h-[480px] xl:h-[520px]">
         {/* Background image */}
         {image && (
-          <div className="absolute inset-0">
-            <img
-              src={image}
-              alt={title}
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#0b1628]/90 via-[#0b1628]/70 to-[#0b1628]/40" />
-          </div>
+          <img
+            src={image}
+            alt={title}
+            className="absolute inset-0 w-full h-full object-cover object-center"
+          />
         )}
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-900/75 via-slate-900/45 to-transparent" />
 
-        <div className="relative z-10 w-full max-w-[1200px] mx-auto px-4 sm:px-6 py-12">
-          {/* Breadcrumb */}
-          <div className="flex items-center gap-2 text-xs text-white/40 mb-6">
-            <Link to="/" className="hover:text-white/70 transition-colors">Trang chủ</Link>
-            <span>/</span>
-            <Link to="/solutions" className="hover:text-white/70 transition-colors">Giải pháp</Link>
-            <span>/</span>
-            <span className="text-white/60">{title}</span>
-          </div>
-
-          {/* Hero content */}
-          <div className="max-w-2xl">
-            <div className={`inline-flex items-center gap-2 border text-xs font-semibold px-3 py-1.5 rounded-full mb-4 ${badgeColor}`}>
-              {badgeText}
+        <div className="relative z-10 flex items-center h-full">
+          <div className="w-full max-w-[1200px] mx-auto px-4 sm:px-6">
+            {/* Breadcrumb */}
+            <div className="flex items-center gap-2 text-xs text-white/40 mb-4">
+              <Link to="/" className="hover:text-white/70 transition-colors">Trang chủ</Link>
+              <span>/</span>
+              <Link to="/solutions" className="hover:text-white/70 transition-colors">Giải pháp</Link>
+              <span>/</span>
+              <span className="text-white/60">{title}</span>
             </div>
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white leading-tight mb-4">
-              {title}
-            </h1>
-            {subtitle && (
-              <p className="text-lg text-green-400 font-semibold mb-3">{subtitle}</p>
-            )}
-            <p className="text-sm text-white/60 leading-relaxed mb-6 max-w-lg">
-              {description}
-            </p>
 
-            {/* Targets */}
-            {targets.length > 0 && (
-              <div className="flex flex-wrap gap-2 mb-6">
-                {targets.map((t) => (
-                  <span
-                    key={t}
-                    className="inline-flex items-center gap-1.5 bg-white/10 backdrop-blur-sm text-white/80 text-xs font-medium px-3 py-1.5 rounded-full border border-white/10"
-                  >
-                    <svg width="9" height="9" viewBox="0 0 16 16" fill="none">
-                      <path d="M3 8l3.5 3.5L13 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                    {t}
-                  </span>
-                ))}
+            {/* Hero content */}
+            <div className="max-w-2xl">
+              <div className={`inline-flex items-center gap-2 border text-xs font-semibold px-3 py-1.5 rounded-full mb-4 ${badgeColor}`}>
+                {badgeText}
               </div>
-            )}
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[56px] font-extrabold text-white leading-tight tracking-tight mb-4">
+                {title}
+              </h1>
+              {subtitle && (
+                <p className="text-sm sm:text-base md:text-lg text-white/80 mb-4 max-w-[560px]">{subtitle}</p>
+              )}
+              <p className="text-sm sm:text-base md:text-lg text-white/80 leading-relaxed mb-6 max-w-[560px]">
+                {description}
+              </p>
+
+              {/* Targets */}
+              {targets.length > 0 && (
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {targets.map((t) => (
+                    <span
+                      key={t}
+                      className="inline-flex items-center gap-1.5 bg-white/10 backdrop-blur-sm text-white/80 text-xs font-medium px-3 py-1.5 rounded-full border border-white/10"
+                    >
+                      <svg width="9" height="9" viewBox="0 0 16 16" fill="none">
+                        <path d="M3 8l3.5 3.5L13 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              )}
 
             {/* Stats */}
             {heroStats.length > 0 && (
@@ -169,6 +168,7 @@ const SolutionDetailLayout = ({
               </div>
             )}
           </div>
+        </div>
         </div>
       </section>
 

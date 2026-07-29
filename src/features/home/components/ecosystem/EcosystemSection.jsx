@@ -3,6 +3,7 @@
 // ============================================
 import EcosystemCard from "@/features/home/components/ecosystem/EcosystemCard";
 import EcosystemMobileTabs from "@/features/home/components/ecosystem/EcosystemMobileTabs";
+import SectionEyebrow from "../common/SectionEyebrow";
 
 const ecosystems = [
   {
@@ -56,6 +57,8 @@ const EcosystemSection = () => {
   return (
     <section className="py-12 md:py-16 bg-slate-50">
       <div className="w-full max-w-[1200px] mx-auto px-4 md:px-6">
+        <SectionEyebrow label="Hệ sinh thái" className="mb-6" />
+
         {/* Section Heading */}
         <h2 className="text-2xl md:text-3xl font-bold leading-tight text-slate-900 text-center mb-10">
           Hệ Sinh Thái Smart Home
