@@ -8,8 +8,7 @@ import {
   signOut,
   onAuthStateChanged,
 } from "firebase/auth";
-import { doc, getDoc } from "firebase/firestore";
-import { auth, db } from "@/services/firebase";
+import { auth } from "@/services/firebase";
 
 const AuthContext = createContext(null);
 
@@ -23,10 +22,9 @@ export const useAuth = () => {
 
 const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
-  const [adminUser, setAdminUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Sign in admin
+  // Sign in — chỉ xác thực Firebase Auth, không kiểm tra Firestore
   const login = async (email, password) => {
     try {
       const userCredential = await signInWithEmailAndPassword(
@@ -34,94 +32,49 @@ const AuthProvider = ({ children }) => {
         email,
         password
       );
-      const user = userCredential.user;
-
-      // Kiểm tra role trong Firestore
-      const userDoc = await getDoc(doc(db, "users", user.uid));
-
-      if (userDoc.exists() && userDoc.data().role === "admin") {
-        setAdminUser({ uid: user.uid, ...userDoc.data() });
-        return { success: true, user: { uid: user.uid, ...userDoc.data() } };
-      } else {
-        // Không phải admin - logout
-        await signOut(auth);
-        setAdminUser(null);
-        return {
-          success: false,
-          error: "Bạn không có quyền truy cập Admin",
-        };
-      }
+      return { success: true, user: userCredential.user };
     } catch (error) {
-      console.error("Login error:", error);
-      let errorMessage = "Đăng nhập thất bại";
+      console.error("[Auth] login error:", error.code, error.message);
 
       switch (error.code) {
         case "auth/invalid-email":
-          errorMessage = "Email không hợp lệ";
-          break;
+          return { success: false, error: "Email không hợp lệ" };
         case "auth/user-disabled":
-          errorMessage = "Tài khoản đã bị vô hiệu hóa";
-          break;
+          return { success: false, error: "Tài khoản đã bị vô hiệu hóa" };
         case "auth/user-not-found":
-          errorMessage = "Email không tồn tại";
-          break;
+          return { success: false, error: "Email không tồn tại" };
         case "auth/wrong-password":
-          errorMessage = "Mật khẩu không đúng";
-          break;
+          return { success: false, error: "Mật khẩu không đúng" };
         case "auth/invalid-credential":
-          errorMessage = "Email hoặc mật khẩu không đúng";
-          break;
+          return { success: false, error: "Email hoặc mật khẩu không đúng" };
         case "auth/too-many-requests":
-          errorMessage = "Quá nhiều lần thử. Vui lòng thử lại sau";
-          break;
+          return { success: false, error: "Quá nhiều lần thử. Vui lòng thử lại sau" };
+        case "auth/network-request-failed":
+          return { success: false, error: "Lỗi mạng. Vui lòng kiểm tra kết nối internet." };
         default:
-          errorMessage = error.message || "Đăng nhập thất bại";
+          return {
+            success: false,
+            error: error.message || "Đăng nhập thất bại",
+          };
       }
-
-      return { success: false, error: errorMessage };
     }
   };
 
-  // Sign out admin
+  // Sign out
   const logout = async () => {
     try {
       await signOut(auth);
-      setCurrentUser(null);
-      setAdminUser(null);
       return { success: true };
     } catch (error) {
-      console.error("Logout error:", error);
+      console.error("[Auth] logout error:", error);
       return { success: false, error: error.message };
     }
   };
 
-  // Check if user is admin
-  const isAdmin = () => {
-    return adminUser !== null && adminUser.role === "admin";
-  };
-
-  // Listen to auth state changes
+  // Listen to auth state changes — chỉ theo dõi Firebase Auth
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       setCurrentUser(user);
-
-      if (user) {
-        // Kiểm tra role trong Firestore
-        try {
-          const userDoc = await getDoc(doc(db, "users", user.uid));
-          if (userDoc.exists() && userDoc.data().role === "admin") {
-            setAdminUser({ uid: user.uid, ...userDoc.data() });
-          } else {
-            setAdminUser(null);
-          }
-        } catch (error) {
-          console.error("Error checking admin role:", error);
-          setAdminUser(null);
-        }
-      } else {
-        setAdminUser(null);
-      }
-
       setLoading(false);
     });
 
@@ -130,11 +83,9 @@ const AuthProvider = ({ children }) => {
 
   const value = {
     currentUser,
-    adminUser,
     loading,
     login,
     logout,
-    isAdmin,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

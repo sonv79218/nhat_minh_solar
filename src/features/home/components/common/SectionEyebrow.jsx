@@ -1,45 +1,33 @@
 // ============================================
-// SECTION EYEBROW DIVIDER
-// Reusable section label
-// Pattern: [────────  LABEL]
+// SECTION EYEBROW
+// Modern Solar Enterprise
 // ============================================
 
 const SectionEyebrow = ({ label, className = "" }) => {
   return (
-    <div
-      className={`
-        flex items-center gap-4
-        ${className}
-      `}
-    >
-      {/* Decorative line */}
-      <span
-        aria-hidden="true"
+    <div className={`inline-block ${className}`}>
+      <h2
         className="
-          block
-          h-[2px]
-          w-16 sm:w-24 md:w-36 lg:w-48
-          shrink-0
-          rounded-full
-          bg-slate-300
-        "
-      />
-
-      {/* Label */}
-      <span
-        className="
-          shrink-0
-          whitespace-nowrap
-          text-xs sm:text-sm
+          inline-block
+          bg-gradient-to-r
+          from-slate-900
+          via-slate-800
+          to-slate-700
+          bg-clip-text
+          text-transparent
+          text-2xl
+          md:text-3xl
           font-bold
-          uppercase
-          tracking-[0.14em]
+          tracking-tight
           leading-none
-          text-slate-700
         "
       >
         {label}
-      </span>
+      </h2>
+
+      <div className="mt-5 h-[3px] w-52 bg-gradient-to-r from-amber-500 via-emerald-500 to-sky-400" />
+
+      <div className="mt-[2px] h-px w-72 bg-gradient-to-r from-slate-300 to-transparent" />
     </div>
   );
 };

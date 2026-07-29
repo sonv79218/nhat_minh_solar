@@ -112,9 +112,8 @@ const HeroSection = () => {
             transition={{ duration: 0.7, ease: "easeOut" }}
             className="max-w-2xl"
           >
-            <div className="hidden sm:inline-flex items-center gap-2 bg-amber-500/20 border border-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-full mb-3 md:mb-5">
+            <div className="hidden sm:inline-flex items-center gap-2 bg-amber-500/20 border border-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-xl mb-3 md:mb-5">
             {/* <div className="inline-flex items-center gap-2 bg-amber-500/20 border border-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-full mb-5"> */}
-              <Sun size={13} />
               <span>Điện Mặt Trời Từ Sơn, Bắc Ninh</span>
             </div>
 
@@ -193,52 +192,6 @@ const HeroSection = () => {
     </section>
   );
 };
-
-// ============================================
-// STATS BAR
-// ============================================
-const StatsBar = () => {
-  const stats = [
-    { value: "8+", label: "Năm kinh nghiệm", icon: Clock },
-    { value: "500+", label: "Dự án hoàn thành", icon: Zap },
-    { value: "98%", label: "Khách hàng hài lòng", icon: Star },
-    { value: "30%", label: "Cam kết tiết kiệm điện", icon: Leaf },
-  ];
-
-  return (
-    <section className="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 border-y border-slate-700/50">
-      <div className="w-full max-w-[1200px] mx-auto px-4 sm:px-6">
-        <div className="grid grid-cols-2 lg:grid-cols-4 divide-x divide-slate-700/50">
-          {stats.map((stat, index) => {
-            const Icon = stat.icon;
-            return (
-              <div
-                key={index}
-                className="flex items-center gap-3 sm:gap-4 py-5 sm:py-6 px-4 sm:px-6 first:pl-0 last:pr-0"
-              >
-                <div className="flex h-10 w-10 sm:h-12 sm:w-12 shrink-0 items-center justify-center rounded-xl bg-amber-500/15 text-amber-400">
-                  <Icon size={20} strokeWidth={2} />
-                </div>
-                <div>
-                  <p className="text-xl sm:text-2xl font-extrabold text-white leading-none">
-                    {stat.value}
-                  </p>
-                  <p className="text-xs sm:text-sm text-white/50 mt-0.5 leading-tight">
-                    {stat.label}
-                  </p>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    </section>
-  );
-};
-
-// ============================================
-// BRANDS SECTION
-// ============================================
 
 // ============================================
 // WHY SOLAR SECTION
@@ -748,10 +701,6 @@ const CTASection = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <div className="inline-flex items-center gap-2 bg-amber-500/20 border border-amber-400/30 text-amber-300 text-xs font-semibold px-4 py-2 rounded-full mb-6">
-            <Sun size={14} />
-            <span>Miễn phí tư vấn 100%</span>
-          </div>
 
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-white leading-tight mb-4">
             Sẵn sàng tiết kiệm điện?
@@ -890,7 +839,7 @@ const HomePage = () => {
       <HeroSection />
 
       {/* Stats Bar */}
-      <StatsBar />
+     
 
 
 

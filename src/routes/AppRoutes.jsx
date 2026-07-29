@@ -14,10 +14,9 @@ import NotFoundPage from "@/pages/NotFoundPage";
 // Admin
 import AdminLayout from "@/features/admin/layouts/AdminLayout";
 import AdminDashboard from "@/features/admin/pages/AdminDashboard";
-import PackageListPage from "@/features/admin/pages/PackageListPage";
-import PackageEditPage from "@/features/admin/pages/PackageEditPage";
-import AdminOrdersPage from "@/features/admin/pages/AdminOrdersPage";
-import AdminSettingsPage from "@/features/admin/pages/AdminSettingsPage";
+import AdminContactRequestsPage from "@/features/admin/pages/AdminContactRequestsPage";
+import AdminLoginPage from "@/features/admin/pages/AdminLoginPage";
+import AdminProtectedRoute from "@/features/admin/components/AdminProtectedRoute";
 // Solar Calculator
 import SolarCalculatorPage from "@/features/calculator/SolarCalculatorPage";
 // Solutions
@@ -60,13 +59,17 @@ const AppRoutes = () => {
         />
 
         {/* ADMIN ROUTES */}
-        <Route element={<AdminLayout />}>
+        <Route path="/admin/login" element={<AdminLoginPage />} />
+
+        <Route
+          element={
+            <AdminProtectedRoute>
+              <AdminLayout />
+            </AdminProtectedRoute>
+          }
+        >
           <Route path="/admin" element={<AdminDashboard />} />
-          <Route path="/admin/packages" element={<PackageListPage />} />
-          <Route path="/admin/packages/new" element={<PackageEditPage />} />
-          <Route path="/admin/packages/:id" element={<PackageEditPage />} />
-          <Route path="/admin/orders" element={<AdminOrdersPage />} />
-          <Route path="/admin/settings" element={<AdminSettingsPage />} />
+          <Route path="/admin/messages" element={<AdminContactRequestsPage />} />
         </Route>
 
         {/* SOLAR CALCULATOR — Standalone, no MainLayout */}

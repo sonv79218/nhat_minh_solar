@@ -262,21 +262,6 @@ const ContactPage = () => {
                 </div>
               </div>
 
-              <div className="mt-5">
-                <label htmlFor="email" className="mb-2 block text-sm font-semibold text-slate-800">
-                  Email
-                </label>
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  value={form.email}
-                  onChange={handleChange}
-                  className={inputClassName}
-                  placeholder="Nhập địa chỉ email"
-                />
-              </div>
 
               <div className="mt-5">
                 <label htmlFor="serviceType" className="mb-2 block text-sm font-semibold text-slate-800">
