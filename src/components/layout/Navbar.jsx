@@ -347,22 +347,34 @@ const Navbar = () => {
               Dự án
             </Link> */}
 
-            <Link
-              to="/tinh-giai-phap"
-              onClick={closeAllMenus}
-              className="flex items-center gap-3 rounded-xl px-4 py-3 text-[15px] font-semibold text-amber-600 hover:bg-amber-50"
-            >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <rect width="16" height="20" x="4" y="2" rx="2"/>
-                <line x1="8" x2="16" y1="6" y2="6"/>
-                <line x1="16" x2="16" y1="14" y2="18"/>
-                <line x1="8" x2="8" y1="14" y2="18"/>
-                <line x1="8" x2="16" y1="14" y2="14"/>
-                <line x1="8" x2="16" y1="18" y2="18"/>
-              </svg>
-              Tính giá Solar
-            </Link>
-
+<Link
+  to="/tinh-giai-phap"
+  onClick={closeAllMenus}
+  className={`flex items-center gap-3 rounded-xl px-4 py-3 text-[15px] font-medium transition-colors ${
+    isActive("/tinh-giai-phap")
+      ? "font-semibold text-amber-600 bg-amber-50"
+      : "text-slate-700 hover:bg-amber-50 hover:text-amber-600"
+  }`}
+>
+  <svg
+    width="18"
+    height="18"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <rect width="16" height="20" x="4" y="2" rx="2" />
+    <line x1="8" x2="16" y1="6" y2="6" />
+    <line x1="16" x2="16" y1="14" y2="18" />
+    <line x1="8" x2="8" y1="14" y2="18" />
+    <line x1="8" x2="16" y1="14" y2="14" />
+    <line x1="8" x2="16" y1="18" y2="18" />
+  </svg>
+  Tính giá Solar
+</Link>
             {/* <Link
               to="/blogs"
               onClick={closeAllMenus}

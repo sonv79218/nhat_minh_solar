@@ -8,35 +8,35 @@ import SectionEyebrow from "./common/SectionEyebrow";
 const BRANDS = [
   {
     name: "LONGi",
-    logo: "/brands/longi.png",
+    logo: "/brands/longi.webp",
     fallback: "LG",
     color: "from-orange-500 to-red-500",
     url: "https://www.longi.com",
   },
   {
     name: "Jinko Solar",
-    logo: "/brands/jinko.png",
+    logo: "/brands/jinko.webp",
     fallback: "JK",
     color: "from-blue-500 to-cyan-500",
     url: "https://www.jinkosolar.com",
   },
   {
     name: "JA Solar",
-    logo: "/brands/ja-solar.png",
+    logo: "/brands/ja-solar.webp",
     fallback: "JA",
     color: "from-blue-600 to-indigo-500",
     url: "https://www.jasolar.com",
   },
   {
     name: "Huawei",
-    logo: "/brands/huawei.png",
+    logo: "/brands/huawei.webp",
     fallback: "HW",
     color: "from-red-500 to-orange-500",
     url: "https://www.huawei.com",
   },
   {
     name: "Sungrow",
-    logo: "/brands/sungrow.png",
+    logo: "/brands/sungrow.webp",
     fallback: "SG",
     color: "from-green-500 to-emerald-500",
     url: "https://www.sungrowpower.com",
@@ -44,7 +44,7 @@ const BRANDS = [
 
   {
     name: "Deye",
-    logo: "/brands/deye.png",
+    logo: "/brands/deye.webp",
     fallback: "DY",
     color: "from-violet-500 to-purple-500",
     url: "https://www.deyeinverter.com",
@@ -67,16 +67,13 @@ const BrandsSection = () => {
   viewport={{ once: true }}
   transition={{ duration: 0.6 }}
   className="
-    flex
-    flex-wrap
-    justify-center
-    items-center
-  
-    md:gap-6
-    rounded-3xl
-  
-    bg-white
-    
+    grid
+    grid-cols-3
+    gap-2.5
+    sm:grid-cols-3
+    sm:gap-4
+    md:grid-cols-6
+    md:gap-5
   "
 >
   {BRANDS.map((brand, index) => (
@@ -88,40 +85,52 @@ const BrandsSection = () => {
       initial={{ opacity: 0, y: 12 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.4, delay: index * 0.05 }}
-      whileHover={{ y: -3, scale: 1.05 }}
+      transition={{
+        duration: 0.4,
+        delay: index * 0.05,
+      }}
+      whileHover={{ y: -3 }}
       whileTap={{ scale: 0.98 }}
       className="
         group
         flex
+        h-[62px]
+        min-w-0
         items-center
         justify-center
-        w-[120px]
-        sm:w-[140px]
-        md:w-[150px]
-        h-[80px]
-        rounded-2xl
+        overflow-hidden
+        rounded-xl
         border
         border-slate-100
         bg-white
-        hover:border-slate-300
-        hover:shadow-md
+        px-2
         transition-all
         duration-300
+        hover:border-slate-300
+        hover:shadow-md
+
+        sm:h-[72px]
+        sm:rounded-2xl
+        sm:px-3
+
+        md:h-[82px]
       "
     >
       <img
         src={brand.logo}
         alt={brand.name}
+        loading="lazy"
         className="
-          max-h-10
-          sm:max-h-11
-          md:max-h-12
+          max-h-7
+          max-w-full
           w-auto
           object-contain
           transition-transform
           duration-300
           group-hover:scale-105
+
+          sm:max-h-9
+          md:max-h-11
         "
       />
     </motion.a>

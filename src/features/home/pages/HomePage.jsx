@@ -46,7 +46,7 @@ const HeroSection = () => {
 
   const slides = [
     {
-      image: "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=1600&q=80",
+      image: "/images/hero/hero-1.webp",
       title: "Điện Mặt Trời Nhật Minh",
       subtitle: "Giải pháp năng lượng sạch bền vững cho mọi công trình",
       highlight: "Nhật Minh",
@@ -54,7 +54,7 @@ const HeroSection = () => {
         "Chuyên cung cấp và lắp đặt hệ thống điện mặt trời chất lượng cao, tiết kiệm điện lên đến 90% cho gia đình và doanh nghiệp.",
     },
     {
-      image: "https://images.unsplash.com/photo-1559302504-64aae6ca6b6d?w=1600&q=80",
+      image: "/images/hero/hero-2.webp",
       title: "Tiết Kiệm Điện Lên Đến 90%",
       subtitle: "Giảm hóa đơn tiền điện hàng tháng",
       highlight: "90%",
@@ -62,7 +62,7 @@ const HeroSection = () => {
         "Hệ thống điện mặt trời Hybrid cho phép lưu trữ điện dư thừa, sử dụng ban đêm hoặc khi mất điện.",
     },
     {
-      image: "https://images.unsplash.com/photo-1613665813446-82a78c468a1d?w=1600&q=80",
+      image: "/images/hero/hero-3.webp",
       title: "Bảo Vệ Môi Trường",
       subtitle: "Năng lượng xanh - Tương lai bền vững",
       highlight: "Xanh",
@@ -99,11 +99,8 @@ const HeroSection = () => {
         </div>
       ))}
 
-      {/* Shared overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-slate-900/75 via-slate-900/45 to-transparent z-[2]" />
-
       {/* Content */}
-      <div className="relative z-[3] flex items-center h-full">
+      <div className="absolute inset-x-0 top-[70%] md:top-[85%] lg:top-[85%] z-[3]">
         <div className="w-full max-w-[1200px] mx-auto px-4 sm:px-6">
           <motion.div
             key={currentSlide}
@@ -112,45 +109,7 @@ const HeroSection = () => {
             transition={{ duration: 0.7, ease: "easeOut" }}
             className="max-w-2xl"
           >
-            <div className="hidden sm:inline-flex items-center gap-2 bg-amber-500/20 border border-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-xl mb-3 md:mb-5">
-            {/* <div className="inline-flex items-center gap-2 bg-amber-500/20 border border-amber-400/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-full mb-5"> */}
-              <span>Điện Mặt Trời Từ Sơn, Bắc Ninh</span>
-            </div>
 
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[56px] font-extrabold text-white leading-tight tracking-tight mb-2 md:mb-4">
-              {slides[currentSlide].title
-                .split(" ")
-                .map((word, i, arr) => {
-                  const isHighlight =
-                    word.toLowerCase() ===
-                      slides[currentSlide].highlight?.toLowerCase() ||
-                    slides[currentSlide].highlight?.toLowerCase().includes(
-                      word.toLowerCase()
-                    );
-                  return (
-                    <span key={i}>
-                      <span
-                        className={
-                          isHighlight
-                            ? "text-amber-400"
-                            : ""
-                        }
-                      >
-                        {word}
-                      </span>
-                      {i < arr.length - 1 ? " " : ""}
-                    </span>
-                  );
-                })}
-            </h1>
-
-            <p className="text-sm sm:text-base md:text-lg text-white/80 leading-relaxed mb-2 max-w-[560px]">
-              {slides[currentSlide].subtitle}
-            </p>
-
-            <p className="text-sm sm:text-base md:text-lg text-white/80 leading-relaxed mb-8 max-w-[560px] hidden md:block">
-              {slides[currentSlide].description}
-            </p>
 
             {/* <div className="flex flex-col sm:flex-row gap-3 sm:gap-4"> */}
             <div className="flex flex-row flex-wrap gap-2 sm:gap-4">
@@ -163,7 +122,7 @@ const HeroSection = () => {
               </a>
               <a
                 href="#dich-vu"
-                className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 backdrop-blur border border-white/20 text-white font-semibold px-6 py-3.5 rounded-xl transition-all duration-300 hover:-translate-y-0.5"
+                className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-semibold px-6 py-3.5 rounded-xl shadow-lg shadow-amber-500/25 transition-all duration-300 hover:-translate-y-0.5"
               >
                 <span>Xem giải pháp</span>
                 <ArrowRight size={18} />
@@ -232,156 +191,54 @@ const WhySolarSection = () => {
     },
   ];
 
-  return (
-    <section className="py-10 sm:py-10 md:py-10 bg-white">
-      <div className="w-full max-w-[1200px] mx-auto px-4 sm:px-6">
-        <SectionEyebrow label="Tại sao chọn điện mặt trời" className="mb-8 md:mb-10" />
+return (
+  <section className="bg-white py-7 sm:py-9 md:py-10">
+    <div className="mx-auto w-full max-w-[1200px] px-4 sm:px-6">
+      <SectionEyebrow
+        label="Tại sao chọn điện mặt trời"
+        className="mb-5 sm:mb-7 md:mb-10"
+      />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
-          {benefits.map((item, index) => {
-            const Icon = item.icon;
-            return (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
-                className="group rounded-2xl border border-slate-100 bg-white p-6 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-2 sm:gap-5 lg:grid-cols-4 md:gap-6">
+        {benefits.map((item, index) => {
+          const Icon = item.icon;
+
+          return (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.35, delay: index * 0.08 }}
+              className="group rounded-xl border border-slate-100 bg-white p-3.5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg sm:rounded-2xl sm:p-6"
+            >
+              <div
+                className={`mb-3 flex h-9 w-9 items-center justify-center rounded-lg ${item.bg} transition-transform duration-300 group-hover:scale-110 sm:mb-5 sm:h-12 sm:w-12 sm:rounded-xl`}
               >
-                <div
-                  className={`w-12 h-12 rounded-xl ${item.bg} flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300`}
-                >
-                  <Icon size={24} className={item.text} strokeWidth={1.8} />
-                </div>
-                <h3 className="text-base font-bold text-slate-900 mb-2">
-                  {item.title}
-                </h3>
-                <p className="text-sm text-slate-500 leading-relaxed">
-                  {item.desc}
-                </p>
-              </motion.div>
-            );
-          })}
-        </div>
+                <Icon
+                  size={19}
+                  className={item.text}
+                  strokeWidth={1.8}
+                />
+              </div>
+
+              <h3 className="mb-1 text-sm font-bold leading-snug text-slate-900 sm:mb-2 sm:text-base">
+                {item.title}
+              </h3>
+
+              <p className="line-clamp-3 text-[11px] leading-4 text-slate-500 sm:text-sm sm:leading-relaxed">
+                {item.desc}
+              </p>
+            </motion.div>
+          );
+        })}
       </div>
-    </section>
-  );
+    </div>
+  </section>
+);
 };
 
-// ============================================
-// SERVICES SECTION
-// ============================================
-const ServicesSection = () => {
-  const services = [
-    {
-      icon: Sun,
-      title: "Điện mặt trời gia đình",
-      desc: "Hệ thống 3kW – 10kW cho nhà ở, căn hộ, biệt thự. Lắp đặt nhanh chóng, bảo hành dài hạn.",
-      price: "Từ 45 triệu",
-      tag: "Phổ biến",
-      color: "amber",
-    },
-    {
-      icon: Zap,
-      title: "Điện mặt trời doanh nghiệp",
-      desc: "Hệ thống công suất lớn cho nhà xưởng, văn phòng, khách sạn. Hoàn vốn nhanh, tiết kiệm chi phí vận hành.",
-      price: "Liên hệ báo giá",
-      tag: "Doanh nghiệp",
-      color: "blue",
-    },
-    {
-      icon: Battery,
-      title: "Hệ thống Hybrid / Lưu trữ",
-      desc: "Kết hợp điện mặt trời và pin lưu trữ. Sử dụng khi mất điện hoặc ban đêm, độc lập lưới điện.",
-      price: "Từ 80 triệu",
-      tag: "Cao cấp",
-      color: "purple",
-    },
-    {
-      icon: ShieldCheck,
-      title: "Bảo trì & Sửa chữa",
-      desc: "Dịch vụ bảo trì định kỳ, vệ sinh tấm pin, kiểm tra hiệu suất hệ thống. Đội ngũ kỹ thuật chuyên nghiệp.",
-      price: "Theo công việc",
-      tag: "Dịch vụ",
-      color: "emerald",
-    },
-  ];
 
-  const colorMap = {
-    amber: { bg: "bg-amber-50", border: "border-amber-100", tag: "bg-amber-100 text-amber-700", icon: "text-amber-600" },
-    blue: { bg: "bg-blue-50", border: "border-blue-100", tag: "bg-blue-100 text-blue-700", icon: "text-blue-600" },
-    purple: { bg: "bg-purple-50", border: "border-purple-100", tag: "bg-purple-100 text-purple-700", icon: "text-purple-600" },
-    emerald: { bg: "bg-emerald-50", border: "border-emerald-100", tag: "bg-emerald-100 text-emerald-700", icon: "text-emerald-600" },
-  };
-
-  return (
-    <section id="dich-vu" className="py-16 sm:py-20 md:py-24 bg-slate-50">
-      <div className="w-full max-w-[1200px] mx-auto px-4 sm:px-6">
-        <div className="text-center mb-12 md:mb-16">
-          <p className="text-xs font-semibold uppercase tracking-[0.15em] text-amber-600 mb-3">
-            Dịch vụ của chúng tôi
-          </p>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 leading-tight">
-            Giải pháp điện mặt trời toàn diện
-          </h2>
-          <p className="mt-4 text-base text-slate-500 max-w-2xl mx-auto">
-            Từ tư vấn, thiết kế đến lắp đặt và bảo hành — Nhật Minh đồng hành
-            cùng bạn trong suốt vòng đời hệ thống.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
-          {services.map((service, index) => {
-            const Icon = service.icon;
-            const colors = colorMap[service.color];
-            return (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
-                className={`group relative rounded-2xl ${colors.bg} border ${colors.border} p-6 hover:shadow-lg transition-all duration-300`}
-              >
-                <span
-                  className={`inline-block text-[10px] font-bold uppercase tracking-wide px-2.5 py-1 rounded-full mb-4 ${colors.tag}`}
-                >
-                  {service.tag}
-                </span>
-
-                <div
-                  className={`w-12 h-12 rounded-xl bg-white border border-slate-200 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300`}
-                >
-                  <Icon size={24} className={colors.icon} strokeWidth={1.8} />
-                </div>
-
-                <h3 className="text-base font-bold text-slate-900 mb-2">
-                  {service.title}
-                </h3>
-                <p className="text-sm text-slate-500 leading-relaxed mb-4">
-                  {service.desc}
-                </p>
-
-                <div className="flex items-center justify-between pt-4 border-t border-slate-200/60">
-                  <p className="text-sm font-semibold text-slate-700">
-                    {service.price}
-                  </p>
-                  <a
-                    href="tel:0876906668"
-                    className={`text-sm font-semibold ${colors.icon} hover:underline`}
-                  >
-                    Tư vấn →
-                  </a>
-                </div>
-              </motion.div>
-            );
-          })}
-        </div>
-      </div>
-    </section>
-  );
-};
 
 // ============================================
 // PROCESS SECTION
@@ -420,7 +277,14 @@ const ProcessSection = () => {
 
         <SectionEyebrow label="Quy trình chuyên nghiệp" className="mb-8 md:mb-10" />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+        {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8"> */}
+        <div className="
+  -mx-4 flex gap-3 overflow-x-auto px-4 pb-2
+  snap-x snap-mandatory
+  scrollbar-hide
+  sm:grid sm:grid-cols-2 sm:gap-6
+  lg:grid-cols-4 lg:gap-8
+">
           {steps.map((step, index) => {
             const Icon = step.icon;
             return (
@@ -430,29 +294,63 @@ const ProcessSection = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: index * 0.12 }}
-                className="relative text-center"
+                // className="relative text-center"
+                className="
+  relative shrink-0 snap-center text-center
+  w-[170px]
+  sm:w-auto
+"
               >
                 {/* Connector line */}
                 {index < steps.length - 1 && (
                   <div className="hidden lg:block absolute top-10 left-[60%] w-[80%] h-px bg-gradient-to-r from-amber-300 to-amber-100 z-0" />
                 )}
 
-                <div className="relative z-10">
-                  <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-amber-400 to-amber-600 text-white font-extrabold text-2xl mb-5 shadow-lg shadow-amber-500/30">
-                    {step.number}
-                  </div>
+<div className="relative z-10">
 
-                  <div className="w-14 h-14 rounded-xl bg-amber-50 flex items-center justify-center mx-auto mb-4">
-                    <Icon size={26} className="text-amber-600" strokeWidth={1.8} />
-                  </div>
+  <div className="
+    inline-flex items-center justify-center
+    w-14 h-14 text-lg
+    rounded-xl
+    bg-gradient-to-br from-amber-400 to-amber-600
+    text-white font-extrabold
+    mb-3
+    shadow-md shadow-amber-500/20
 
-                  <h3 className="text-lg font-bold text-slate-900 mb-2">
-                    {step.title}
-                  </h3>
-                  <p className="text-sm text-slate-500 leading-relaxed max-w-[220px] mx-auto">
-                    {step.desc}
-                  </p>
-                </div>
+    sm:w-20 sm:h-20
+    sm:text-2xl
+    sm:rounded-2xl
+    sm:mb-5
+    sm:shadow-lg
+  ">
+    {step.number}
+  </div>
+
+  <div className="
+    mx-auto mb-3
+    flex h-10 w-10 items-center justify-center
+    rounded-lg bg-amber-50
+
+    sm:h-14 sm:w-14
+    sm:rounded-xl
+    sm:mb-4
+  ">
+    <Icon
+      size={20}
+      className="text-amber-600"
+      strokeWidth={1.8}
+    />
+  </div>
+
+  <h3 className="mb-1 text-sm font-bold text-slate-900 sm:text-lg sm:mb-2">
+    {step.title}
+  </h3>
+
+  <p className="mx-auto max-w-[160px] text-[11px] leading-4 text-slate-500 sm:max-w-[220px] sm:text-sm sm:leading-relaxed">
+    {step.desc}
+  </p>
+
+</div>
               </motion.div>
             );
           })}

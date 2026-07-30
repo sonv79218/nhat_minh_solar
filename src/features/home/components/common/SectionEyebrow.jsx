@@ -27,7 +27,7 @@ const SectionEyebrow = ({ label, className = "" }) => {
 
       <div className="mt-5 h-[3px] w-52 bg-gradient-to-r from-amber-500 via-emerald-500 to-sky-400" />
 
-      <div className="mt-[2px] h-px w-72 bg-gradient-to-r from-slate-300 to-transparent" />
+      {/* <div className="mt-[2px] h-px w-72 bg-gradient-to-r from-slate-300 to-transparent" /> */}
     </div>
   );
 };

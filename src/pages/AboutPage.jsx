@@ -59,11 +59,10 @@ const AboutPage = () => {
       {/* Hero Banner */}
       <section className="relative w-full overflow-hidden h-[260px] sm:h-[320px] md:h-[400px] lg:h-[480px] xl:h-[520px]">
         <img
-          src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=1600&q=80"
+          src="/images/hero/hero-1.webp"
           alt="Điện mặt trời Nhật Minh"
           className="absolute inset-0 w-full h-full object-cover object-center"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-slate-900/75 via-slate-900/45 to-transparent" />
         <div className="relative z-10 flex items-center h-full">
           <div className="w-full max-w-[1200px] mx-auto px-4 sm:px-6">
             <motion.div
@@ -71,47 +70,14 @@ const AboutPage = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <p className="text-amber-400 text-xs font-semibold uppercase tracking-[0.15em] mb-3">
-                Về chúng tôi
-              </p>
-              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[56px] font-extrabold text-white leading-tight tracking-tight">
-                Nhật Minh — Điện Mặt Trời
-              </h1>
-              <p className="mt-3 text-sm sm:text-base md:text-lg text-white/80 max-w-[560px]">
-                Đơn vị lắp đặt điện mặt trời uy tín tại Từ Sơn, Bắc Ninh với 8
-                năm kinh nghiệm.
-              </p>
+
             </motion.div>
           </div>
         </div>
       </section>
 
       {/* Stats */}
-      <section className="bg-slate-50 border-b border-slate-200">
-        <div className="w-full max-w-[1200px] mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-2 lg:grid-cols-4 divide-x divide-slate-200">
-            {stats.map((stat, index) => {
-              const Icon = stat.icon;
-              return (
-                <div
-                  key={index}
-                  className="py-8 px-4 sm:px-6 first:pl-0 last:pr-0 text-center"
-                >
-                  <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-amber-50 text-amber-600 mb-3">
-                    <Icon size={22} strokeWidth={1.8} />
-                  </div>
-                  <p className="text-2xl sm:text-3xl font-extrabold text-slate-900">
-                    {stat.value}
-                  </p>
-                  <p className="text-xs sm:text-sm text-slate-500 mt-1">
-                    {stat.label}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
+
 
       {/* About Content */}
       <section className="py-16 sm:py-20 md:py-24 bg-white">

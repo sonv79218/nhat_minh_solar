@@ -58,7 +58,6 @@ const SolutionDetailLayout = ({
   description,
   targets = [],
   image,
-  badgeText,
   badgeColor = "bg-green-500/10 text-green-400 border-green-500/30",
   // Packages to display
   packages,
@@ -102,75 +101,7 @@ const SolutionDetailLayout = ({
   return (
     <MainLayout>
       {/* ── Hero banner ── */}
-      <section className="relative w-full overflow-hidden h-[260px] sm:h-[320px] md:h-[400px] lg:h-[480px] xl:h-[520px]">
-        {/* Background image */}
-        {image && (
-          <img
-            src={image}
-            alt={title}
-            className="absolute inset-0 w-full h-full object-cover object-center"
-          />
-        )}
-        <div className="absolute inset-0 bg-gradient-to-r from-slate-900/75 via-slate-900/45 to-transparent" />
 
-        <div className="relative z-10 flex items-center h-full">
-          <div className="w-full max-w-[1200px] mx-auto px-4 sm:px-6">
-            {/* Breadcrumb */}
-            <div className="flex items-center gap-2 text-xs text-white/40 mb-4">
-              <Link to="/" className="hover:text-white/70 transition-colors">Trang chủ</Link>
-              <span>/</span>
-              <Link to="/solutions" className="hover:text-white/70 transition-colors">Giải pháp</Link>
-              <span>/</span>
-              <span className="text-white/60">{title}</span>
-            </div>
-
-            {/* Hero content */}
-            <div className="max-w-2xl">
-              <div className={`inline-flex items-center gap-2 border text-xs font-semibold px-3 py-1.5 rounded-full mb-4 ${badgeColor}`}>
-                {badgeText}
-              </div>
-              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[56px] font-extrabold text-white leading-tight tracking-tight mb-4">
-                {title}
-              </h1>
-              {subtitle && (
-                <p className="text-sm sm:text-base md:text-lg text-white/80 mb-4 max-w-[560px]">{subtitle}</p>
-              )}
-              <p className="text-sm sm:text-base md:text-lg text-white/80 leading-relaxed mb-6 max-w-[560px]">
-                {description}
-              </p>
-
-              {/* Targets */}
-              {targets.length > 0 && (
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {targets.map((t) => (
-                    <span
-                      key={t}
-                      className="inline-flex items-center gap-1.5 bg-white/10 backdrop-blur-sm text-white/80 text-xs font-medium px-3 py-1.5 rounded-full border border-white/10"
-                    >
-                      <svg width="9" height="9" viewBox="0 0 16 16" fill="none">
-                        <path d="M3 8l3.5 3.5L13 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                      {t}
-                    </span>
-                  ))}
-                </div>
-              )}
-
-            {/* Stats */}
-            {heroStats.length > 0 && (
-              <div className="flex flex-wrap gap-6">
-                {heroStats.map(({ val, label }) => (
-                  <div key={label} className="flex items-center gap-2">
-                    <span className="text-xl font-extrabold text-green-400">{val}</span>
-                    <span className="text-sm text-white/40">{label}</span>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
-        </div>
-      </section>
 
       {/* ── Packages section ── */}
       <section className="w-full bg-slate-50 py-10 sm:py-14">
@@ -180,11 +111,8 @@ const SolutionDetailLayout = ({
           <div className="flex items-start justify-between gap-4 mb-8">
             <div>
               <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 leading-tight">
-                Các gói giải pháp
+                Các gói giải pháp cho <span className="text-green-500">{title}</span>
               </h2>
-              <p className="text-sm text-slate-500 mt-1">
-                Hiển thị {filtered.length} trong tổng số {packages.length} gói
-              </p>
             </div>
           </div>
 

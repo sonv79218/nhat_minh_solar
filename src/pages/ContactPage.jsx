@@ -112,28 +112,6 @@ const ContactPage = () => {
 
   return (
     <main className="min-h-screen overflow-hidden bg-white text-slate-900">
-      {/* Hero Banner */}
-      <section className="relative w-full overflow-hidden h-[260px] sm:h-[320px] md:h-[400px] lg:h-[480px] xl:h-[520px]">
-        <img
-          src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=1600&q=80"
-          alt="Liên hệ Điện Mặt Trời Nhật Minh"
-          className="absolute inset-0 w-full h-full object-cover object-center"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-slate-900/75 via-slate-900/45 to-transparent" />
-        <div className="relative z-10 flex items-center h-full">
-          <div className="w-full max-w-[1200px] mx-auto px-4 sm:px-6">
-            <p className="text-amber-400 text-xs font-semibold uppercase tracking-[0.15em] mb-3">
-              Liên hệ
-            </p>
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[56px] font-extrabold text-white leading-tight tracking-tight">
-              Liên hệ Nhật Minh
-            </h1>
-            <p className="mt-3 text-sm sm:text-base md:text-lg text-white/80 max-w-[560px]">
-              Đội ngũ tư vấn sẵn sàng hỗ trợ bạn 24/7. Khảo sát & báo giá miễn phí tại nhà.
-            </p>
-          </div>
-        </div>
-      </section>
 
       {/* CONTACT CONTENT */}
       <section className="py-16 md:py-24">
@@ -141,10 +119,6 @@ const ContactPage = () => {
           {/* CONTACT INFO */}
           <div className="animate-contact-fade-up">
             <div className="sticky top-28">
-              <div className="inline-flex items-center gap-2 bg-amber-50 border border-amber-100 text-amber-700 text-xs font-semibold px-3 py-1.5 rounded-full mb-5">
-                <Sun size={13} />
-                <span>Điện Mặt Trời Nhật Minh — Từ Sơn, Bắc Ninh</span>
-              </div>
 
               <h2 className="mt-3 text-3xl font-bold leading-tight tracking-tight text-slate-950 md:text-4xl">
                 Nhật Minh Công Nghệ Group

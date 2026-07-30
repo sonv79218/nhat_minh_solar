@@ -21,7 +21,7 @@ import process from "node:process";
 import sharp from "sharp";
 
 const config = {
-  inputFolder: "public/picture",
+  inputFolder: "public/brands",
   maxWidth: 1600,
   maxHeight: 1200,
   quality: 76,

@@ -29,16 +29,14 @@ const CompanyIntroductionSection = () => {
             transition={{ duration: 0.7, ease: "easeOut" }}
             className="relative"
           >
-            {/* Main image */}
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-slate-900/10">
-              <img
-                src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=800&q=80"
-                alt="Điện mặt trời Nhật Minh - Lắp đặt hệ thống"
-                className="w-full h-[380px] sm:h-[450px] lg:h-[550px] object-cover"
-              />
-              {/* Overlay gradient */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0b1628]/30 to-transparent" />
-            </div>
+<div className="relative hidden overflow-hidden rounded-2xl shadow-2xl shadow-slate-900/10 lg:block">
+  <img
+     src="https://images.unsplash.com/photo-1558449028-b53a39d100fc?w=700&q=80"
+    alt="Điện mặt trời Nhật Minh - Lắp đặt hệ thống"
+    className="h-[550px] w-full object-cover"
+  />
+  {/* <div className="absolute inset-0 bg-gradient-to-t from-[#0b1628]/30 to-transparent" /> */}
+</div>
 
             {/* Floating stat card */}
             <div className="absolute -bottom-5 -right-4 sm:right-4 bg-[#0b1628] rounded-2xl px-6 py-5 shadow-2xl shadow-slate-900/20 border border-[#1a2a40] hidden sm:block">
