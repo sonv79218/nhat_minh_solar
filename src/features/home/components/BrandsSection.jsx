@@ -29,7 +29,7 @@ const BRANDS = [
   },
   {
     name: "Huawei",
-    logo: "/brands/huawei.webp",
+    logo: "/brands/luxpower.webp",
     fallback: "HW",
     color: "from-red-500 to-orange-500",
     url: "https://www.huawei.com",
