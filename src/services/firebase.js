@@ -1,11 +1,23 @@
 // ============================================
 // FIREBASE CONFIG - NHẬT MINH
 // ============================================
-import { initializeApp } from "firebase/app";
+// Nguồn cấu hình DUY NHẤT của toàn bộ ứng dụng.
+//
+// - `app`    : Firebase App duy nhất (không initializeApp() ở nơi khác)
+// - `db`     : Firestore dùng chung
+// - `auth`   : Firebase Authentication dùng chung
+// - `storage`: Firebase Storage dùng chung (bucket đã cấu hình trong .env)
+//
+// Toàn bộ module khác PHẢI import từ đây:
+//   import { db, auth, storage } from "@/services/firebase";
+// Không được gọi initializeApp() / getFirestore(app) / getAuth(app) ở module khác.
+// ============================================
+import { initializeApp, getApps } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
+import { getStorage } from "firebase/storage";
 
-// Firebase configuration - replace with your project's config
+// Firebase configuration - lấy từ biến môi trường (.env)
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "",
   authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || "",
@@ -15,13 +27,19 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID || "",
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
+// Khởi tạo App DUY NHẤT.
+// getApps() bảo đảm không bao giờ initializeApp() lần thứ hai
+// (ví dụ khi Vite hot-reload hoặc module bị import nhiều lần).
+const app = getApps().length ? getApps()[0] : initializeApp(firebaseConfig);
 
-// Initialize Firestore
+// Firestore dùng chung
 export const db = getFirestore(app);
 
-// Initialize Auth
+// Auth dùng chung
 export const auth = getAuth(app);
 
+// Storage dùng chung (chỉ khởi tạo khi đã cấu hình bucket)
+export const storage = firebaseConfig.storageBucket ? getStorage(app) : null;
+
+export { firebaseConfig };
 export default app;

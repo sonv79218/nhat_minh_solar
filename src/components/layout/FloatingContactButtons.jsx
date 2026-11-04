@@ -1,10 +1,11 @@
 import { Phone, MessageCircle } from "lucide-react";
+import { social } from "@/config/companyConfig";
 
 const FloatingContactButtons = () => {
   const buttons = [
     {
       label: "Zalo tư vấn",
-      href: "https://zalo.me/0876906668",
+      href: social.zalo,
       icon: MessageCircle,
       className: "bg-blue-600 hover:bg-blue-700 shadow-blue-500/40",
     },
@@ -25,8 +26,8 @@ const FloatingContactButtons = () => {
           <a
             key={button.label}
             href={button.href}
-            target={button.href.startsWith("http") ? "_blank" : undefined}
-            rel={button.href.startsWith("http") ? "noopener noreferrer" : undefined}
+            target={button.href?.startsWith("http") ? "_blank" : undefined}
+            rel={button.href?.startsWith("http") ? "noopener noreferrer" : undefined}
             className={`
               group relative
               flex items-center gap-3

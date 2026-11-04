@@ -63,8 +63,6 @@ const formatDate = (ts) => {
   });
 };
 
-const SERVICE_TYPE_OPTIONS = ["all", "new", "contacted", "done"];
-
 export default function AdminContactRequestsPage() {
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -87,7 +85,25 @@ export default function AdminContactRequestsPage() {
   };
 
   useEffect(() => {
-    fetchRequests();
+    let cancelled = false;
+
+    (async () => {
+      setLoading(true);
+      setError("");
+      try {
+        const data = await getContactRequests();
+        if (!cancelled) setRequests(data);
+      } catch (e) {
+        console.error(e);
+        if (!cancelled) setError("Không thể tải danh sách yêu cầu.");
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   const handleStatusChange = async (id, newStatus) => {

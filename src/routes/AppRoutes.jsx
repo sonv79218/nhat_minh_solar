@@ -17,8 +17,13 @@ import AdminDashboard from "@/features/admin/pages/AdminDashboard";
 import AdminContactRequestsPage from "@/features/admin/pages/AdminContactRequestsPage";
 import AdminLoginPage from "@/features/admin/pages/AdminLoginPage";
 import AdminProtectedRoute from "@/features/admin/components/AdminProtectedRoute";
+import AdminOnlyRoute from "@/features/admin/components/AdminOnlyRoute";
 // Solar Calculator
 import SolarCalculatorPage from "@/features/calculator/SolarCalculatorPage";
+// Articles
+import ArticlesPage from "@/features/articles/pages/ArticlesPage";
+import ArticleDetailPage from "@/features/articles/pages/ArticleDetailPage";
+import AdminArticlesPage from "@/features/admin/pages/AdminArticlesPage";
 // Solutions
 import SolutionsPage from "@/features/calculator/pages/SolutionsPage";
 import SolarHomePage from "@/features/calculator/pages/SolarHomePage";
@@ -58,6 +63,25 @@ const AppRoutes = () => {
           }
         />
 
+        {/* ARTICLES */}
+        <Route
+          path="/bai-viet"
+          element={
+            <MainLayout>
+              <ArticlesPage />
+            </MainLayout>
+          }
+        />
+
+        <Route
+          path="/bai-viet/:slug"
+          element={
+            <MainLayout>
+              <ArticleDetailPage />
+            </MainLayout>
+          }
+        />
+
         {/* ADMIN ROUTES */}
         <Route path="/admin/login" element={<AdminLoginPage />} />
 
@@ -69,7 +93,15 @@ const AppRoutes = () => {
           }
         >
           <Route path="/admin" element={<AdminDashboard />} />
-          <Route path="/admin/messages" element={<AdminContactRequestsPage />} />
+          <Route
+            path="/admin/messages"
+            element={
+              <AdminOnlyRoute>
+                <AdminContactRequestsPage />
+              </AdminOnlyRoute>
+            }
+          />
+          <Route path="/admin/articles" element={<AdminArticlesPage />} />
         </Route>
 
         {/* SOLAR CALCULATOR — Standalone, no MainLayout */}

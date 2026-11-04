@@ -30,7 +30,10 @@ export default function AdminLoginPage() {
     const result = await login(email.trim(), password);
 
     if (result.success) {
-      navigate("/admin/messages", { replace: true });
+      // Mọi tài khoản đã đăng nhập đều quản lý được bài viết.
+      // /admin/messages chỉ dành cho Admin nên đưa người dùng tới
+      // trang quản lý bài viết.
+      navigate("/admin/articles", { replace: true });
     } else {
       setError(result.error || "Đăng nhập thất bại.");
       setLoading(false);

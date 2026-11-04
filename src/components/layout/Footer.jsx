@@ -10,12 +10,18 @@ import {
   Sun,
   Phone,
   MapPin,
-  Mail,
   Clock,
   BadgeCheck,
   Zap,
   ChevronDown,
+  Navigation,
 } from "lucide-react";
+import SocialLinks from "@/components/common/SocialLinks";
+import {
+  company,
+  getMapEmbedUrl,
+  getDirectionsUrl,
+} from "@/config/companyConfig";
 
 const Footer = () => {
   const [openSection, setOpenSection] = useState(null);
@@ -43,9 +49,15 @@ const Footer = () => {
   ];
 
   const contactLinks = [
-    { label: "Hotline: 0876 906 668", href: "tel:0876906668" },
-    { label: "Kỹ thuật: 0972 131 477", href: "tel:0972131477" },
-    { label: "Email: contact@nhatminh.vn", href: "mailto:contact@nhatminh.vn" },
+    {
+      label: `Hotline: ${company.phones.hotline.display}`,
+      href: company.phones.hotline.href,
+    },
+    {
+      label: `Kỹ thuật: ${company.phones.technical.display}`,
+      href: company.phones.technical.href,
+    },
+    { label: `Email: ${company.email.display}`, href: company.email.href },
     { label: "Zalo: 0876 906 668", href: "https://zalo.me/0876906668" },
   ];
 
@@ -95,7 +107,7 @@ const Footer = () => {
           >
             <Zap className="w-5 h-5 text-amber-400" />
             <span className="text-sm font-medium text-white">
-              8 năm kinh nghiệm — Điện mặt trời Từ Sơn, Bắc Ninh
+              {company.experience}
             </span>
           </motion.div>
 
@@ -116,27 +128,72 @@ const Footer = () => {
 
           <div className="border-t border-slate-800 my-10" />
 
+          {/* SOCIAL LINKS + MAP */}
+          <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
+            {/* Social */}
+            <div>
+              <h4 className="text-white text-base font-bold mb-4 tracking-wide">
+                Kết nối với chúng tôi
+              </h4>
+              <p className="mb-4 text-sm text-gray-400">
+                Theo dõi Nhật Minh Solar trên các nền tảng mạng xã hội để cập nhật
+                tin tức, báo giá và chương trình ưu đãi mới nhất.
+              </p>
+              <SocialLinks variant="dark" shape="pill" />
+            </div>
+
+            {/* Map */}
+            <div>
+              <h4 className="text-white text-base font-bold mb-4 tracking-wide">
+                Vị trí cửa hàng
+              </h4>
+              <div className="overflow-hidden rounded-2xl border border-slate-800 bg-slate-900">
+                <iframe
+                  title="Bản đồ vị trí Nhật Minh Solar"
+                  src={getMapEmbedUrl()}
+                  width="100%"
+                  height="240"
+                  style={{ border: 0 }}
+                  allowFullScreen=""
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  className="block"
+                />
+              </div>
+              {getDirectionsUrl() && (
+                <a
+                  href={getDirectionsUrl()}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-amber-400 transition hover:text-amber-300"
+                >
+                  <Navigation size={15} />
+                  Mở Google Maps và chỉ đường tới cửa hàng
+                </a>
+              )}
+            </div>
+          </div>
+
+          <div className="border-t border-slate-800 my-10" />
+
           <div className="grid lg:grid-cols-2 gap-8 text-sm">
             {/* Brand info */}
             <div className="space-y-4">
               <div className="flex items-center gap-2">
                 <Sun className="w-5 h-5 text-amber-400" />
                 <h4 className="text-white font-bold text-base">
-                  Nhật Minh — Điện Mặt Trời
+                  {company.brand}
                 </h4>
               </div>
 
               <div className="flex items-start gap-2 text-gray-400">
                 <MapPin size={15} className="mt-0.5 shrink-0 text-amber-400" />
-                <p>
-                  Nhà số 01 ngõ Giếng Vàng, Khu phố Phù Lưu, Phường Từ Sơn,
-                  Tỉnh Bắc Ninh, Việt Nam
-                </p>
+                <p>{company.address.full}</p>
               </div>
 
               <div className="flex items-start gap-2 text-gray-400">
                 <Clock size={15} className="mt-0.5 shrink-0 text-amber-400" />
-                <p>Giờ làm việc: 08:00 – 18:00, thứ Hai – Chủ nhật</p>
+                <p>Giờ làm việc: {company.workingHours}</p>
               </div>
             </div>
 
@@ -144,20 +201,19 @@ const Footer = () => {
             <div className="space-y-3 text-gray-400">
               <p>
                 <span className="text-white font-semibold">
-                  CÔNG TY TNHH NHẬT MINH CÔNG NGHỆ GROUP
+                  {company.legalName}
                 </span>
               </p>
-              <p>GPĐKKD: 2301374027 — MST: 2301374027</p>
               <p>
-                Chuyên cung cấp, lắp đặt hệ thống điện mặt trời chất lượng cao
-                tại Bắc Ninh và các tỉnh lân cận.
+                GPĐKKD: {company.businessId} — MST: {company.taxId}
               </p>
+              <p>{company.description}</p>
             </div>
           </div>
 
           <div className="border-t border-slate-800 mt-8 pt-6 flex items-center justify-between">
             <p className="text-xs text-gray-500">
-              © 2018 – 2026 Nhật Minh Công Nghệ Group. All rights reserved.
+              {company.copyright}
             </p>
             <div className="flex items-center gap-1.5">
               <BadgeCheck className="w-4 h-4 text-amber-400" />
@@ -210,22 +266,41 @@ const Footer = () => {
         <div className="bg-slate-950 px-4 py-6 border-t border-slate-800">
           <div className="flex items-center gap-2 mb-3">
             <Sun className="w-5 h-5 text-amber-400" />
-            <h4 className="font-extrabold text-white">Nhật Minh — Điện Mặt Trời</h4>
+            <h4 className="font-extrabold text-white">{company.brand}</h4>
           </div>
 
           <div className="space-y-2 text-sm text-gray-400 mb-4">
             <p className="flex items-center gap-2">
               <Phone size={13} className="text-amber-400 shrink-0" />
-              <span>Hotline: 0876 906 668</span>
+              <span>Hotline: {company.phones.hotline.display}</span>
             </p>
             <p className="flex items-start gap-2">
               <MapPin size={13} className="text-amber-400 shrink-0 mt-0.5" />
-              <span>Từ Sơn, Bắc Ninh</span>
+              <span>{company.address.short}</span>
             </p>
           </div>
 
+          <div className="mb-4">
+            <p className="mb-2 text-xs font-semibold uppercase tracking-[0.14em] text-gray-500">
+              Kết nối mạng xã hội
+            </p>
+            <SocialLinks variant="dark" shape="pill" />
+          </div>
+
+          {getDirectionsUrl() && (
+            <a
+              href={getDirectionsUrl()}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mb-4 inline-flex items-center gap-2 text-sm font-semibold text-amber-400 transition hover:text-amber-300"
+            >
+              <Navigation size={14} />
+              Xem vị trí trên Google Maps
+            </a>
+          )}
+
           <p className="text-xs text-gray-500 leading-6">
-            © 2018 – 2026 Nhật Minh Công Nghệ Group. GPĐKKD: 2301374027
+            © 2018 – 2026 Nhật Minh Công Nghệ Group. GPĐKKD: {company.businessId}
           </p>
         </div>
       </footer>

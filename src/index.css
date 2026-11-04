@@ -95,6 +95,160 @@
   }
 }
 
+/* ==================== ARTICLE CONTENT ==================== */
+@layer components {
+  .article-content {
+    @apply text-[15px] leading-[1.85] text-slate-700;
+  }
+
+  .article-content h1 {
+    @apply mb-4 mt-8 text-2xl font-extrabold leading-tight text-slate-900 first:mt-0;
+  }
+
+  .article-content h2 {
+    @apply mb-3 mt-8 text-xl font-bold leading-tight text-slate-900 first:mt-0;
+  }
+
+  .article-content h3 {
+    @apply mb-2 mt-6 text-lg font-bold leading-snug text-slate-900 first:mt-0;
+  }
+
+  .article-content p {
+    @apply mb-4;
+  }
+
+  .article-content a {
+    @apply font-medium text-blue-600 underline underline-offset-2 transition-colors hover:text-blue-700;
+  }
+
+  .article-content strong,
+  .article-content b {
+    @apply font-bold text-slate-900;
+  }
+
+  .article-content em,
+  .article-content i {
+    @apply italic;
+  }
+
+  .article-content ul {
+    @apply mb-4 list-disc space-y-1.5 pl-6;
+  }
+
+  .article-content ol {
+    @apply mb-4 list-decimal space-y-1.5 pl-6;
+  }
+
+  .article-content li::marker {
+    @apply text-amber-500;
+  }
+
+  .article-content blockquote {
+    @apply my-5 border-l-4 border-amber-400 bg-amber-50/60 px-4 py-3 text-slate-600;
+  }
+
+  /* Hình + chú thích */
+  .article-content figure {
+    @apply my-6;
+  }
+
+  .article-content figure img {
+    @apply w-full rounded-xl border border-slate-100 shadow-sm;
+  }
+
+  .article-content figcaption,
+  .article-content .article-figcaption {
+    @apply mt-2 text-center text-xs italic text-slate-400;
+  }
+
+  /* Bảng thông số kỹ thuật */
+  .article-content .article-table-wrap {
+    @apply my-6 overflow-x-auto rounded-xl border border-slate-200;
+  }
+
+  .article-content table {
+    @apply w-full border-collapse text-sm;
+  }
+
+  .article-content table th {
+    @apply border-b border-slate-200 bg-slate-50 px-4 py-3 text-left text-xs font-bold uppercase tracking-wide text-slate-600;
+  }
+
+  .article-content table td {
+    @apply border-b border-slate-100 px-4 py-3 text-slate-700;
+  }
+
+  .article-content table tr:last-child td {
+    @apply border-b-0;
+  }
+
+  .article-content table tbody tr:hover {
+    @apply bg-slate-50/70;
+  }
+
+  /* Trình soạn thảo (admin) */
+  .article-editor {
+    @apply text-[15px] leading-[1.8] text-slate-700;
+  }
+
+  .article-editor h1 {
+    @apply mb-3 mt-5 text-2xl font-extrabold text-slate-900;
+  }
+
+  .article-editor h2 {
+    @apply mb-2 mt-5 text-xl font-bold text-slate-900;
+  }
+
+  .article-editor h3 {
+    @apply mb-2 mt-4 text-lg font-bold text-slate-900;
+  }
+
+  .article-editor p {
+    @apply mb-3;
+  }
+
+  .article-editor ul {
+    @apply mb-3 list-disc space-y-1 pl-6;
+  }
+
+  .article-editor ol {
+    @apply mb-3 list-decimal space-y-1 pl-6;
+  }
+
+  .article-editor a {
+    @apply font-medium text-blue-600 underline underline-offset-2;
+  }
+
+  .article-editor figure {
+    @apply my-4;
+  }
+
+  .article-editor figure img {
+    @apply w-full rounded-xl border border-slate-100;
+  }
+
+  .article-editor figcaption,
+  .article-editor .article-figcaption {
+    @apply mt-1.5 text-center text-xs italic text-slate-400;
+  }
+
+  .article-editor .article-table-wrap {
+    @apply my-4 overflow-x-auto rounded-xl border border-slate-200;
+  }
+
+  .article-editor table {
+    @apply w-full border-collapse text-sm;
+  }
+
+  .article-editor table th {
+    @apply border-b border-slate-200 bg-slate-50 px-3 py-2 text-left text-xs font-bold text-slate-600;
+  }
+
+  .article-editor table td {
+    @apply border-b border-slate-100 px-3 py-2;
+  }
+}
+
 /* ==================== UTILITIES ==================== */
 @layer utilities {
   .animate-fade-in {

@@ -10,31 +10,32 @@ import {
   Mail,
   MessageCircle,
   Clock,
-  Send,
-  Sun,
   ArrowRight,
+  Navigation,
 } from "lucide-react";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "@/services/firebase";
+import CompanyMap from "@/components/common/CompanyMap";
+import SocialLinks from "@/components/common/SocialLinks";
+import { company, getDirectionsUrl } from "@/config/companyConfig";
 
 const contactItems = [
   {
     icon: MapPin,
     label: "Địa chỉ",
-    value:
-      "Nhà số 01 ngõ Giếng Vàng, Khu phố Phù Lưu, Phường Từ Sơn, Tỉnh Bắc Ninh, Việt Nam",
+    value: company.address.full,
   },
   {
     icon: Phone,
     label: "Hotline",
-    value: "0876 906 668",
-    href: "tel:0876906668",
+    value: company.phones.hotline.display,
+    href: company.phones.hotline.href,
   },
   {
     icon: Phone,
     label: "Kỹ thuật",
-    value: "0972 131 477",
-    href: "tel:0972131477",
+    value: company.phones.technical.display,
+    href: company.phones.technical.href,
   },
   {
     icon: MessageCircle,
@@ -45,13 +46,13 @@ const contactItems = [
   {
     icon: Mail,
     label: "Email",
-    value: "contact@nhatminh.vn",
-    href: "mailto:contact@nhatminh.vn",
+    value: company.email.display,
+    href: company.email.href,
   },
   {
     icon: Clock,
     label: "Giờ làm việc",
-    value: "08:00 – 18:00, thứ Hai – Chủ nhật",
+    value: company.workingHours,
   },
 ];
 
@@ -166,8 +167,20 @@ const ContactPage = () => {
               </div>
 
               <p className="mt-6 text-sm leading-6 text-slate-500">
-                GPĐKKD: 2301374027 · MST: 2301374027
+                GPĐKKD: {company.businessId} · MST: {company.taxId}
               </p>
+
+              {/* SOCIAL LINKS */}
+              <div className="mt-7">
+                <p className="mb-3 text-xs font-semibold uppercase tracking-[0.16em] text-amber-600 md:text-sm">
+                  Kết nối mạng xã hội
+                </p>
+                <SocialLinks variant="light" shape="pill" />
+                <p className="mt-3 text-xs leading-5 text-slate-500">
+                  Nhắn tin Zalo để được tư vấn nhanh nhất, hoặc theo dõi chúng
+                  tôi trên Facebook và TikTok để cập nhật tin tức mới nhất.
+                </p>
+              </div>
             </div>
           </div>
 
@@ -288,6 +301,47 @@ const ContactPage = () => {
               </div>
             </form>
           </div>
+        </div>
+      </section>
+
+      {/* GOOGLE MAPS */}
+      <section className="pb-16 md:pb-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-5">
+          <div className="mb-7 text-center">
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-amber-600 md:text-sm">
+              Vị trí cửa hàng
+            </p>
+            <h2 className="mt-2 text-2xl font-bold leading-tight tracking-tight text-slate-950 sm:text-3xl md:text-4xl">
+              Ghim vị trí Nhật Minh trên Google Maps
+            </h2>
+            <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-slate-500 md:text-base">
+              Nhấn vào bản đồ để mở Google Maps, hoặc dùng nút chỉ đường để tìm
+              đường nhanh nhất tới cửa hàng của chúng tôi.
+            </p>
+          </div>
+
+          <CompanyMap heightClass="h-[320px] md:h-[440px]" />
+
+          {getDirectionsUrl() && (
+            <div className="mt-5 flex flex-col items-center justify-center gap-3 sm:flex-row">
+              <a
+                href={getDirectionsUrl()}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-amber-500/25 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl sm:w-auto md:text-base"
+              >
+                <Navigation size={17} />
+                Chỉ đường tới cửa hàng
+              </a>
+              <a
+                href={`tel:${company.phones.hotline.href.replace("tel:", "")}`}
+                className="group inline-flex w-full items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-6 py-3.5 text-sm font-bold text-slate-700 transition-all duration-300 hover:-translate-y-0.5 hover:border-amber-500 hover:text-amber-600 sm:w-auto md:text-base"
+              >
+                <Phone size={17} />
+                Gọi hotline {company.phones.hotline.display}
+              </a>
+            </div>
+          )}
         </div>
       </section>
 

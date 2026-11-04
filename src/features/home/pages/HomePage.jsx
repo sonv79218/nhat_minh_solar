@@ -20,6 +20,11 @@ import CompanyIntroductionSection from "@/features/home/components/common/Compan
 import { ProjectsSection } from "@/features/home/components";
 
 // ============================================
+// LATEST ARTICLES SECTION
+// ============================================
+import LatestArticlesSection from "@/features/home/components/LatestArticlesSection";
+
+// ============================================
 // HOME PAGE - ĐIỆN MẶT TRỜI NHẬT MINH
 // Full landing page with hero, stats, services, products, process, CTA
 // ============================================
@@ -770,6 +775,9 @@ const HomePage = () => {
 
       {/* Testimonials */}
       <TestimonialsSection />
+
+      {/* Latest Articles */}
+      <LatestArticlesSection />
 
       {/* CTA */}
       <CTASection />

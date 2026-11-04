@@ -4,13 +4,12 @@
 // Full-screen sidebar + header layout
 // ============================================
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 import {
-  LayoutDashboard,
   MessageSquare,
   LogOut,
   Sun,
   User,
+  FileText,
 } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 
@@ -20,13 +19,17 @@ const NAV_ITEMS = [
     icon: MessageSquare,
     to: "/admin/messages",
   },
-
+  {
+    label: "Quản lý bài viết",
+    icon: FileText,
+    to: "/admin/articles",
+  },
 ];
 
 export default function AdminLayout() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { logout } = useAuth();
+  const { logout, admin, currentUser } = useAuth();
 
   const isActive = (to) => {
     if (to === "/admin") {
@@ -35,6 +38,11 @@ export default function AdminLayout() {
 
     return location.pathname.startsWith(to);
   };
+
+  // Tin nhắn (contact_requests) chỉ dành cho Admin
+  const visibleNavItems = NAV_ITEMS.filter(
+    (item) => item.to !== "/admin/messages" || admin
+  );
 
   const handleLogout = async () => {
     await logout();
@@ -69,7 +77,7 @@ export default function AdminLayout() {
 
         {/* Navigation */}
         <nav className="flex-1 space-y-1 overflow-y-auto px-2 py-4">
-          {NAV_ITEMS.map(({ label, icon: Icon, to }) => {
+          {visibleNavItems.map(({ label, icon: Icon, to }) => {
             const active = isActive(to);
 
             return (
@@ -114,7 +122,7 @@ export default function AdminLayout() {
 
             <div className="min-w-0 flex-1">
               <p className="truncate text-xs font-medium text-white/80">
-                Admin 
+                {admin ? "Admin" : currentUser?.email || "Người dùng"}
               </p>
             </div>
 

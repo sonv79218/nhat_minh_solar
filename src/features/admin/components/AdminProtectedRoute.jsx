@@ -1,7 +1,9 @@
 // ============================================
 // ADMIN PROTECTED ROUTE
-// Redirects unauthenticated users to /admin/login
-// Shows full-page loading spinner while checking auth
+// Điện Mặt Trời Nhật Minh
+// ============================================
+// Chỉ bảo vệ bằng PHIÊN ĐĂNG NHẬP Firebase Authentication.
+// KHÔNG kiểm tra Custom Claims / role admin (theo Security Rules hiện tại).
 // ============================================
 import { Navigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";

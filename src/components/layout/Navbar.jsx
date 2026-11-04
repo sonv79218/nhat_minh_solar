@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { ChevronDown, House, Package, PanelsTopLeft, Phone, Sun } from "lucide-react";
+import { ChevronDown, House, Package, PanelsTopLeft, Phone, Sun, FileText } from "lucide-react";
 
 
 import { TYPOGRAPHY } from "@/styles/designSystem";
@@ -29,6 +29,7 @@ const productItems = [
 
 const desktopLinks = [
   // { label: "Dự án", href: "/projects" },
+  { label: "Bài viết", href: "/bai-viet" },
   { label: "Tính giá", href: "/tinh-giai-phap" },
   { label: "Giới thiệu", href: "/about" },
   { label: "Liên hệ", href: "/contact" },
@@ -383,6 +384,19 @@ const Navbar = () => {
               <PanelsTopLeft size={18} />
               Tin tức
             </Link> */}
+
+            <Link
+              to="/bai-viet"
+              onClick={closeAllMenus}
+              className={`flex items-center gap-3 rounded-xl px-4 py-3 text-[15px] font-medium transition-colors ${
+                isActive("/bai-viet")
+                  ? "font-semibold text-amber-600 bg-amber-50"
+                  : "text-slate-700 hover:bg-amber-50 hover:text-amber-600"
+              }`}
+            >
+              <FileText size={18} />
+              Bài viết
+            </Link>
 
             <Link
               to="/about"
