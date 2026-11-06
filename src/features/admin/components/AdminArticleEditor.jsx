@@ -256,7 +256,8 @@ const AdminArticleEditor = ({ article, categories, user, onClose, onSaved }) => 
       setError(
         describeFirebaseError(
           e,
-          "Không thể lưu bài viết. Vui lòng kiểm tra kết nối."
+          "Không thể lưu bài viết. Vui lòng kiểm tra kết nối.",
+          Boolean(user?.uid)
         )
       );
     } finally {

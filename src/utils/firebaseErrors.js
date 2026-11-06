@@ -8,11 +8,26 @@
  */
 
 /**
+ * Thông báo khi Firestore từ chối thao tác.
+ * @param {boolean} [isSignedIn] - Người dùng có đang đăng nhập hay không
+ * @returns {string}
+ */
+export const describePermissionError = (isSignedIn = true) =>
+  isSignedIn
+    ? "Firestore không cho phép thao tác này. Vui lòng kiểm tra lại Security Rules trên Firebase Console."
+    : "Bạn cần đăng nhập để thực hiện thao tác này. Vui lòng đăng nhập rồi thử lại.";
+
+/**
  * @param {unknown} error - Lỗi từ Firebase SDK
  * @param {string} [fallback] - Thông báo mặc định khi không xác định được
+ * @param {boolean} [isSignedIn] - Người dùng có đang đăng nhập hay không
  * @returns {string} Thông báo thân thiện
  */
-export const describeFirebaseError = (error, fallback = "Đã xảy ra lỗi. Vui lòng thử lại.") => {
+export const describeFirebaseError = (
+  error,
+  fallback = "Đã xảy ra lỗi. Vui lòng thử lại.",
+  isSignedIn = true
+) => {
   if (!error) return fallback;
 
   const code = error.code || "";
@@ -20,7 +35,7 @@ export const describeFirebaseError = (error, fallback = "Đã xảy ra lỗi. Vu
   switch (code) {
     case "permission-denied":
     case "PERMISSION_DENIED":
-      return "Không có quyền thực hiện thao tác này trên Firestore. Hãy đăng nhập lại rồi thử.";
+      return describePermissionError(isSignedIn);
 
     case "unauthenticated":
     case "UNAUTHENTICATED":
@@ -65,7 +80,7 @@ export const describeFirebaseError = (error, fallback = "Đã xảy ra lỗi. Vu
   const message = String(error.message || "");
 
   if (/PERMISSION_DENIED|Missing or insufficient permissions/i.test(message)) {
-    return "Không có quyền thực hiện thao tác này trên Firestore. Hãy đăng nhập lại rồi thử.";
+    return describePermissionError(isSignedIn);
   }
   if (/UNAUTHENTICATED|requires authentication/i.test(message)) {
     return "Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại rồi thử.";

@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "@/services/firebase";
+import { describeFirebaseError } from "@/utils/firebaseErrors";
 import { company } from "@/config/companyConfig";
 
 const contactItems = [
@@ -99,7 +100,13 @@ const ContactPage = () => {
       setSuccess("Yêu cầu đã được gửi thành công! Nhật Minh sẽ liên hệ với bạn trong 30 phút.");
     } catch (submitError) {
       console.error(submitError);
-      setError("Có lỗi xảy ra. Vui lòng gọi hotline 0876 906 668 để được hỗ trợ.");
+      setError(
+        describeFirebaseError(
+          submitError,
+          "Có lỗi xảy ra. Vui lòng gọi hotline 0876 906 668 để được hỗ trợ.",
+          false
+        )
+      );
     } finally {
       setLoading(false);
     }

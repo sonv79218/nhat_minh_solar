@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { getContactRequests, updateContactRequestStatus } from "@/services/contactService";
 import { describeFirebaseError } from "@/utils/firebaseErrors";
+import { useAuth } from "@/contexts/AuthContext";
 
 const STATUS_CONFIG = {
   new: {
@@ -65,6 +66,8 @@ const formatDate = (ts) => {
 };
 
 export default function AdminContactRequestsPage() {
+  const { currentUser } = useAuth();
+
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -75,11 +78,17 @@ export default function AdminContactRequestsPage() {
     setLoading(true);
     setError("");
     try {
-      const data = await getContactRequests();
+      const data = await getContactRequests(currentUser);
       setRequests(data);
     } catch (e) {
       console.error(e);
-      setError(describeFirebaseError(e, "Không thể tải danh sách yêu cầu."));
+      setError(
+        describeFirebaseError(
+          e,
+          "Không thể tải danh sách yêu cầu.",
+          Boolean(currentUser)
+        )
+      );
     } finally {
       setLoading(false);
     }
@@ -92,12 +101,16 @@ export default function AdminContactRequestsPage() {
       setLoading(true);
       setError("");
       try {
-        const data = await getContactRequests();
+        const data = await getContactRequests(currentUser);
         if (!cancelled) setRequests(data);
       } catch (e) {
         console.error(e);
         if (!cancelled) setError(
-          describeFirebaseError(e, "Không thể tải danh sách yêu cầu.")
+          describeFirebaseError(
+            e,
+            "Không thể tải danh sách yêu cầu.",
+            Boolean(currentUser)
+          )
         );
       } finally {
         if (!cancelled) setLoading(false);
@@ -107,20 +120,24 @@ export default function AdminContactRequestsPage() {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [currentUser]);
 
   const handleStatusChange = async (id, newStatus) => {
     setUpdatingId(id);
     setError("");
     try {
-      await updateContactRequestStatus(id, newStatus);
+      await updateContactRequestStatus(id, newStatus, currentUser);
       setRequests((prev) =>
         prev.map((r) => (r.id === id ? { ...r, status: newStatus } : r))
       );
     } catch (e) {
       console.error(e);
       setError(
-        describeFirebaseError(e, "Không thể cập nhật trạng thái yêu cầu.")
+        describeFirebaseError(
+          e,
+          "Không thể cập nhật trạng thái yêu cầu.",
+          Boolean(currentUser)
+        )
       );
     } finally {
       setUpdatingId(null);

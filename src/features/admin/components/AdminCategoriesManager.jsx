@@ -89,7 +89,9 @@ const AdminCategoriesManager = ({ categories, user, onClose, onChanged }) => {
       onChanged?.();
     } catch (e) {
       console.error(e);
-      setError(describeFirebaseError(e, "Không thể lưu danh mục."));
+      setError(
+        describeFirebaseError(e, "Không thể lưu danh mục.", Boolean(user?.uid))
+      );
     } finally {
       setBusy(false);
     }
@@ -116,7 +118,8 @@ const AdminCategoriesManager = ({ categories, user, onClose, onChanged }) => {
       setError(
         describeFirebaseError(
           e,
-          "Không thể xóa danh mục (có thể còn bài viết thuộc danh mục này)."
+          "Không thể xóa danh mục (có thể còn bài viết thuộc danh mục này).",
+          Boolean(user?.uid)
         )
       );
     } finally {

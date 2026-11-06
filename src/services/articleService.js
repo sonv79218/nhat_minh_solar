@@ -26,6 +26,7 @@ import {
   writeBatch,
 } from "firebase/firestore";
 import { db } from "@/services/firebase";
+import { withRetry } from "@/services/firebaseRetry";
 import { slugify } from "@/utils/articleUtils";
 import { DEFAULT_CATEGORIES } from "@/features/articles/data/articleCategories";
 import { AUTH_REQUIRED_MESSAGE } from "@/utils/adminAuth";
@@ -98,15 +99,17 @@ export const getArticleCategories = async () => {
 export const createArticleCategory = async (user, payload) => {
   requireAuth(user);
 
-  const docRef = await addDoc(collection(db, CATEGORIES_COLLECTION), {
-    name: payload.name,
-    slug: payload.slug || slugify(payload.name),
-    description: payload.description || "",
-    icon: payload.icon || "Folder",
-    order: Number(payload.order) || Date.now(),
-    createdAt: serverTimestamp(),
-    updatedAt: serverTimestamp(),
-  });
+  const docRef = await withRetry(user, () =>
+    addDoc(collection(db, CATEGORIES_COLLECTION), {
+      name: payload.name,
+      slug: payload.slug || slugify(payload.name),
+      description: payload.description || "",
+      icon: payload.icon || "Folder",
+      order: Number(payload.order) || Date.now(),
+      createdAt: serverTimestamp(),
+      updatedAt: serverTimestamp(),
+    })
+  );
 
   return docRef.id;
 };
@@ -120,14 +123,16 @@ export const updateArticleCategory = async (user, id, payload) => {
 
   const ref = doc(db, CATEGORIES_COLLECTION, id);
 
-  await updateDoc(ref, {
-    name: payload.name,
-    slug: payload.slug || slugify(payload.name),
-    description: payload.description || "",
-    icon: payload.icon || "Folder",
-    order: Number(payload.order) || 0,
-    updatedAt: serverTimestamp(),
-  });
+  await withRetry(user, () =>
+    updateDoc(ref, {
+      name: payload.name,
+      slug: payload.slug || slugify(payload.name),
+      description: payload.description || "",
+      icon: payload.icon || "Folder",
+      order: Number(payload.order) || 0,
+      updatedAt: serverTimestamp(),
+    })
+  );
 };
 
 /**
@@ -137,7 +142,7 @@ export const updateArticleCategory = async (user, id, payload) => {
 export const deleteArticleCategory = async (user, id) => {
   requireAuth(user);
 
-  await deleteDoc(doc(db, CATEGORIES_COLLECTION, id));
+  await withRetry(user, () => deleteDoc(doc(db, CATEGORIES_COLLECTION, id)));
 };
 
 // ============================================
@@ -259,7 +264,9 @@ export const getAllArticles = async (user) => {
   requireAuth(user);
 
   try {
-    const snapshot = await getDocs(collection(db, ARTICLES_COLLECTION));
+    const snapshot = await withRetry(user, () =>
+      getDocs(collection(db, ARTICLES_COLLECTION))
+    );
 
     return snapshot.docs
       .map((d) => ({ id: d.id, ...d.data() }))
@@ -281,7 +288,9 @@ export const getAllArticles = async (user) => {
 export const getArticleById = async (user, id) => {
   requireAuth(user);
 
-  const snapshot = await getDoc(doc(db, ARTICLES_COLLECTION, id));
+  const snapshot = await withRetry(user, () =>
+    getDoc(doc(db, ARTICLES_COLLECTION, id))
+  );
   if (!snapshot.exists()) return null;
 
   return { id: snapshot.id, ...snapshot.data() };
@@ -296,8 +305,8 @@ export const getArticleById = async (user, id) => {
 export const slugExists = async (user, slug, excludeId) => {
   requireAuth(user);
 
-  const snapshot = await getDocs(
-    query(collection(db, ARTICLES_COLLECTION), where("slug", "==", slug))
+  const snapshot = await withRetry(user, () =>
+    getDocs(query(collection(db, ARTICLES_COLLECTION), where("slug", "==", slug)))
   );
 
   return snapshot.docs.some((d) => d.id !== excludeId);
@@ -329,23 +338,25 @@ export const createArticle = async (user, payload) => {
   const now = serverTimestamp();
   const status = payload.status === "published" ? "published" : "draft";
 
-  const docRef = await addDoc(collection(db, ARTICLES_COLLECTION), {
-    title: payload.title,
-    slug: payload.slug,
-    excerpt: payload.excerpt || "",
-    coverImage: payload.coverImage || "",
-    content: payload.content || "",
-    category: payload.category || "",
-    type: payload.type || "knowledge",
-    status,
-    featured: Boolean(payload.featured),
-    author: payload.author || "Nhật Minh",
-    equipment: Array.isArray(payload.equipment) ? payload.equipment : [],
-    projectInfo: payload.projectInfo || null,
-    publishedAt: status === "published" ? now : payload.publishedAt || null,
-    createdAt: now,
-    updatedAt: now,
-  });
+  const docRef = await withRetry(user, () =>
+    addDoc(collection(db, ARTICLES_COLLECTION), {
+      title: payload.title,
+      slug: payload.slug,
+      excerpt: payload.excerpt || "",
+      coverImage: payload.coverImage || "",
+      content: payload.content || "",
+      category: payload.category || "",
+      type: payload.type || "knowledge",
+      status,
+      featured: Boolean(payload.featured),
+      author: payload.author || "Nhật Minh",
+      equipment: Array.isArray(payload.equipment) ? payload.equipment : [],
+      projectInfo: payload.projectInfo || null,
+      publishedAt: status === "published" ? now : payload.publishedAt || null,
+      createdAt: now,
+      updatedAt: now,
+    })
+  );
 
   return docRef.id;
 };
@@ -383,7 +394,7 @@ export const updateArticle = async (user, id, payload) => {
     patch.publishedAt = payload.publishedAt || null;
   }
 
-  await updateDoc(ref, patch);
+  await withRetry(user, () => updateDoc(ref, patch));
 };
 
 /**
@@ -393,7 +404,7 @@ export const updateArticle = async (user, id, payload) => {
 export const deleteArticle = async (user, id) => {
   requireAuth(user);
 
-  await deleteDoc(doc(db, ARTICLES_COLLECTION, id));
+  await withRetry(user, () => deleteDoc(doc(db, ARTICLES_COLLECTION, id)));
 };
 
 /**
@@ -410,7 +421,7 @@ export const setArticleStatus = async (user, id, status) => {
     patch.publishedAt = serverTimestamp();
   }
 
-  await updateDoc(ref, patch);
+  await withRetry(user, () => updateDoc(ref, patch));
 };
 
 /**
@@ -422,9 +433,11 @@ export const deleteArticlesBatch = async (user, ids) => {
 
   if (!ids?.length) return;
 
-  const batch = writeBatch(db);
-  ids.forEach((id) => batch.delete(doc(db, ARTICLES_COLLECTION, id)));
-  await batch.commit();
+  await withRetry(user, () => {
+    const batch = writeBatch(db);
+    ids.forEach((id) => batch.delete(doc(db, ARTICLES_COLLECTION, id)));
+    return batch.commit();
+  });
 };
 
 // ============================================

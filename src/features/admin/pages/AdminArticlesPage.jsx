@@ -74,7 +74,13 @@ const AdminArticlesPage = () => {
       setArticles(data);
     } catch (e) {
       console.error(e);
-      setError(describeFirebaseError(e, "Không thể tải danh sách bài viết."));
+      setError(
+        describeFirebaseError(
+          e,
+          "Không thể tải danh sách bài viết.",
+          Boolean(currentUser)
+        )
+      );
     } finally {
       setLoading(false);
     }
@@ -98,7 +104,13 @@ const AdminArticlesPage = () => {
       } catch (e) {
         console.error(e);
         if (!cancelled) {
-          setError(describeFirebaseError(e, "Không thể tải danh sách bài viết."));
+          setError(
+            describeFirebaseError(
+              e,
+              "Không thể tải danh sách bài viết.",
+              Boolean(currentUser)
+            )
+          );
         }
       } finally {
         if (!cancelled) setLoading(false);
@@ -165,7 +177,11 @@ const AdminArticlesPage = () => {
     } catch (e) {
       console.error(e);
       setError(
-        describeFirebaseError(e, "Không thể xóa bài viết. Vui lòng thử lại.")
+        describeFirebaseError(
+          e,
+          "Không thể xóa bài viết. Vui lòng thử lại.",
+          Boolean(currentUser)
+        )
       );
     } finally {
       setDeletingBusy(false);
@@ -188,7 +204,11 @@ const AdminArticlesPage = () => {
     } catch (e) {
       console.error(e);
       setError(
-        describeFirebaseError(e, "Không thể cập nhật trạng thái bài viết.")
+        describeFirebaseError(
+          e,
+          "Không thể cập nhật trạng thái bài viết.",
+          Boolean(currentUser)
+        )
       );
     } finally {
       setStatusBusyId(null);
