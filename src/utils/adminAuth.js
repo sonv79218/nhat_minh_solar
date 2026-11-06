@@ -3,9 +3,9 @@
  * ADMIN AUTH HELPER
  * Điện Mặt Trời Nhật Minh
  * ============================================
- * Mô hình phân quyền HIỆN TẠI (theo Firestore Security Rules đã deploy):
+ * Mô hình phân quyền HIỆN TẠI (theo Firestore Security Rules):
  *   • KHÔNG dùng Custom Claims.
- *   • KHÔNG dùng role "admin".
+ *   • KHÔNG dùng role "admin" / collection "users".
  *   • Mọi tài khoản đăng nhập Firebase Authentication đều được phép
  *     tạo / sửa / xoá bài viết và quản lý danh mục bài viết.
  *

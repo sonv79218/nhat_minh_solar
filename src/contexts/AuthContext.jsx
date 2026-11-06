@@ -6,7 +6,7 @@
 //
 // Theo Firestore Security Rules hiện tại:
 //   • KHÔNG yêu cầu Custom Claims.
-//   • KHÔNG yêu cầu role "admin".
+//   • KHÔNG yêu cầu role "admin" / collection "users".
 //   • Mọi tài khoản đã đăng nhập đều tạo / sửa / xoá bài viết và
 //     quản lý danh mục bài viết được.
 //

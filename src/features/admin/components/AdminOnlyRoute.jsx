@@ -1,6 +1,7 @@
 // ============================================
 // AUTHENTICATED CONTACT REQUESTS ROUTE
 // Firestore/Auth hiện tại dùng phiên đăng nhập làm cơ chế phân quyền.
+// Yêu cầu liên hệ: ai cũng tạo được và ai cũng đọc được.
 // ============================================
 import { Navigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";

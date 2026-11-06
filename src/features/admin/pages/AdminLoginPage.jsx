@@ -31,8 +31,7 @@ export default function AdminLoginPage() {
 
     if (result.success) {
       // Mọi tài khoản đã đăng nhập đều quản lý được bài viết.
-      // /admin/messages chỉ dành cho Admin nên đưa người dùng tới
-      // trang quản lý bài viết.
+      // Yêu cầu liên hệ cũng xem/đổi trạng thái được cho mọi tài khoản.
       navigate("/admin/articles", { replace: true });
     } else {
       setError(result.error || "Đăng nhập thất bại.");

@@ -3,9 +3,6 @@
 import BrandsSection from "@/features/home/components/BrandsSection";
 import SectionEyebrow from "@/features/home/components/common/SectionEyebrow";
 
-// ============================================
-// PRODUCTS & SERVICES SECTION
-import ProductsServicesSection from "@/features/home/components/common/ProductsServicesSection";
 
 // ============================================
 // PRICING SECTION
@@ -15,9 +12,6 @@ import PricingSection from "@/features/home/components/pricing/PricingSection";
 // COMPANY INTRODUCTION SECTION
 import CompanyIntroductionSection from "@/features/home/components/common/CompanyIntroductionSection";
 
-// ============================================
-// PROJECTS SECTION
-import { ProjectsSection } from "@/features/home/components";
 
 // ============================================
 // LATEST ARTICLES SECTION
@@ -28,19 +22,16 @@ import LatestArticlesSection from "@/features/home/components/LatestArticlesSect
 // HOME PAGE - ĐIỆN MẶT TRỜI NHẬT MINH
 // Full landing page with hero, stats, services, products, process, CTA
 // ============================================
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect,  } from "react";
 import { motion } from "framer-motion";
 import {
   Zap,
   Leaf,
   ShieldCheck,
   Clock,
-  Sun,
   Phone,
   ArrowRight,
-  CheckCircle2,
   Star,
-  ChevronDown,
 } from "lucide-react";
 
 // ============================================
@@ -635,24 +626,6 @@ const ZaloIcon = () => (
   </svg>
 );
 
-// ============================================
-// PLACEHOLDER ICONS
-// ============================================
-const Battery = ({ size = 24, className = "" }) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="1.8"
-    className={className}
-  >
-    <rect x="2" y="7" width="18" height="11" rx="2" />
-    <path d="M22 11v3" strokeLinecap="round" />
-    <path d="M7 10v4M10 10v4M13 10v4" />
-  </svg>
-);
 
 const ClipboardCheck = ({ size = 24, className = "" }) => (
   <svg

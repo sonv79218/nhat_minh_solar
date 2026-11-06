@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { ChevronDown, House, Package, PanelsTopLeft, Phone, Sun, FileText } from "lucide-react";
+import { ChevronDown, House, PanelsTopLeft, Phone, Sun, FileText } from "lucide-react";
 
 
 import { TYPOGRAPHY } from "@/styles/designSystem";

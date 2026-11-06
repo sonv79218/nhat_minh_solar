@@ -3,11 +3,13 @@
 // Điện Mặt Trời Nhật Minh
 // CRUD cho collection "articles" + "article_categories" trên Firestore
 // ============================================
-// PHÂN QUYỀN (theo Firestore Security Rules đã deploy):
-//   • Đọc  : công khai.
-//   • Ghi  : mọi tài khoản đã đăng nhập Firebase Authentication đều được
-//            phép tạo / sửa / xoá bài viết và quản lý danh mục.
-//   • KHÔNG kiểm tra Custom Claims, KHÔNG kiểm tra role "admin".
+// PHÂN QUYỀN (theo Firestore Security Rules hiện tại):
+//   • Bài viết: đọc công khai (bài `status = "published"`).
+//              Mọi tài khoản đã đăng nhập Firebase Authentication đều được
+//              phép tạo / sửa / xoá bài viết và quản lý danh mục bài viết.
+//   • KHÔNG phân biệt admin: không Custom Claims, không collection "users",
+//     không vai trò nào trong hệ thống.
+//   • Yêu cầu liên hệ: ai cũng tạo được, ai cũng đọc được.
 // ============================================
 import {
   collection,

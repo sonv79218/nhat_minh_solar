@@ -4,6 +4,7 @@
 // ============================================
 // Chỉ bảo vệ bằng PHIÊN ĐĂNG NHẬP Firebase Authentication.
 // KHÔNG kiểm tra Custom Claims / role admin (theo Security Rules hiện tại).
+// Mọi tài khoản đã đăng nhập đều quản lý được bài viết.
 // ============================================
 import { Navigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";

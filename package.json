@@ -7,21 +7,11 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview",
-    "sitemap": "node scripts/generate-sitemap.mjs",
-    "seed:categories": "node scripts/seed-article-categories.mjs",
-    "seed:article": "node scripts/seed-sample-article.mjs",
-    "seed:projects": "node scripts/seed-sample-projects.mjs",
-    "deploy:rules": "node scripts/deploy-firestore-rules.mjs",
-    "verify:firebase": "node scripts/verify-single-firebase.mjs",
-    "test:rules": "node scripts/test-security-rules.mjs",
-    "test:crud": "node scripts/test-article-crud.mjs",
-    "emulators": "firebase emulators:start --only firestore,auth --project demo-nhat-minh"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@fontsource/inter": "^5.3.0",
     "firebase": "^12.13.0",
-    "firebase-admin": "^13.10.0",
     "framer-motion": "^12.40.0",
     "lucide-react": "^1.16.0",
     "react": "^19.2.6",

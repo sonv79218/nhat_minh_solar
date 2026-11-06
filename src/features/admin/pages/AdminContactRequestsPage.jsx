@@ -15,6 +15,7 @@ import {
   ChevronDown,
 } from "lucide-react";
 import { getContactRequests, updateContactRequestStatus } from "@/services/contactService";
+import { describeFirebaseError } from "@/utils/firebaseErrors";
 
 const STATUS_CONFIG = {
   new: {
@@ -78,7 +79,7 @@ export default function AdminContactRequestsPage() {
       setRequests(data);
     } catch (e) {
       console.error(e);
-      setError("Không thể tải danh sách yêu cầu.");
+      setError(describeFirebaseError(e, "Không thể tải danh sách yêu cầu."));
     } finally {
       setLoading(false);
     }
@@ -95,7 +96,9 @@ export default function AdminContactRequestsPage() {
         if (!cancelled) setRequests(data);
       } catch (e) {
         console.error(e);
-        if (!cancelled) setError("Không thể tải danh sách yêu cầu.");
+        if (!cancelled) setError(
+          describeFirebaseError(e, "Không thể tải danh sách yêu cầu.")
+        );
       } finally {
         if (!cancelled) setLoading(false);
       }
@@ -108,6 +111,7 @@ export default function AdminContactRequestsPage() {
 
   const handleStatusChange = async (id, newStatus) => {
     setUpdatingId(id);
+    setError("");
     try {
       await updateContactRequestStatus(id, newStatus);
       setRequests((prev) =>
@@ -115,6 +119,9 @@ export default function AdminContactRequestsPage() {
       );
     } catch (e) {
       console.error(e);
+      setError(
+        describeFirebaseError(e, "Không thể cập nhật trạng thái yêu cầu.")
+      );
     } finally {
       setUpdatingId(null);
     }
