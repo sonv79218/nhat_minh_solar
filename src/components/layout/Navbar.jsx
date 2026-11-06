@@ -186,20 +186,22 @@ const Navbar = () => {
           >
 
 
-            <span className="flex flex-col text-left leading-none">
-              <span
-                className="tracking-[-0.5px] text-slate-900"
-                style={{
-                  fontSize: TYPOGRAPHY.logoFontSize,
-                  fontWeight: TYPOGRAPHY.logoFontWeight,
-                }}
-              >
-                <span className="text-amber-600">NHAT </span>MINH
-              </span>
-              <span className="mt-1 text-[9px] uppercase tracking-[0.14em] text-slate-500 sm:text-[10px] md:text-xs">
-                Điện mặt trời từ sơn
-              </span>
-            </span>
+<span className="flex flex-col text-left leading-none">
+  <span
+    className="whitespace-nowrap font-serif tracking-[-1.2px]"
+    style={{
+      fontFamily: "'Lora', Georgia, serif",
+      fontSize: TYPOGRAPHY.logoFontSize,
+      fontWeight: 500,
+      lineHeight: 1,
+    }}
+  >
+    <span className="text-[#193D56]">Nhật Minh </span>
+    <span className="text-[#8EAF55]">Solar</span>
+  </span>
+
+
+</span>
           </button>
 
           <div className="hidden items-center lg:flex">

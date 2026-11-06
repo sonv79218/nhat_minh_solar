@@ -335,6 +335,7 @@ export const createArticle = async (user, payload) => {
     status,
     featured: Boolean(payload.featured),
     author: payload.author || "Nhật Minh",
+    equipment: Array.isArray(payload.equipment) ? payload.equipment : [],
     projectInfo: payload.projectInfo || null,
     publishedAt: status === "published" ? now : payload.publishedAt || null,
     createdAt: now,
@@ -365,6 +366,7 @@ export const updateArticle = async (user, id, payload) => {
     status,
     featured: Boolean(payload.featured),
     author: payload.author || "Nhật Minh",
+    equipment: Array.isArray(payload.equipment) ? payload.equipment : [],
     projectInfo: payload.projectInfo ?? null,
     updatedAt: serverTimestamp(),
   });

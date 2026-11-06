@@ -741,9 +741,12 @@ const HomePage = () => {
       {/* <ProductsSection /> */}
 
       {/* Projects */}
-      {/* <ProjectsSection /> */}
+
+           {/* Latest Articles */}
+      <LatestArticlesSection />
+
       {/* Why Solar */}
-      <WhySolarSection />
+      {/* <WhySolarSection /> */}
 
       {/* Pricing Section */}
       <PricingSection />
@@ -761,8 +764,6 @@ const HomePage = () => {
       {/* Testimonials */}
       <TestimonialsSection />
 
-      {/* Latest Articles */}
-      <LatestArticlesSection />
 
       {/* CTA */}
       <CTASection />

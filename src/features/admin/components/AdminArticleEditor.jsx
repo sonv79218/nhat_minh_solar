@@ -12,6 +12,7 @@ import {
   ImagePlus,
   X,
   Trash2,
+  Plus,
   Eye,
   Star,
   Copy,
@@ -44,6 +45,7 @@ const EMPTY_FORM = {
   status: "draft",
   featured: false,
   author: "Nhật Minh",
+  equipment: [],
   projectInfo: {
     projectName: "",
     location: "",
@@ -172,6 +174,26 @@ const AdminArticleEditor = ({ article, categories, user, onClose, onSaved }) => 
     }));
   };
 
+  const addEquipment = () => {
+    setField("equipment", [...form.equipment, ""]);
+  };
+
+  const updateEquipment = (index, value) => {
+    setField(
+      "equipment",
+      form.equipment.map((item, itemIndex) =>
+        itemIndex === index ? value : item
+      )
+    );
+  };
+
+  const removeEquipment = (index) => {
+    setField(
+      "equipment",
+      form.equipment.filter((_, itemIndex) => itemIndex !== index)
+    );
+  };
+
   const handleSave = async (status) => {
     // Chống nhấn lưu liên tục (double-click / Enter nhiều lần)
     if (savingRef.current) return;
@@ -216,6 +238,7 @@ const AdminArticleEditor = ({ article, categories, user, onClose, onSaved }) => 
         status,
         featured: form.featured,
         author: form.author || "Nhật Minh",
+        equipment: cleanEquipment(form.equipment),
         projectInfo:
           form.type === "project" ? cleanProjectInfo(form.projectInfo) : null,
       };
@@ -571,6 +594,58 @@ const AdminArticleEditor = ({ article, categories, user, onClose, onSaved }) => 
                 </div>
 
                 <div>
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <label className={labelClass}>Danh sách thiết bị</label>
+                      <p className="text-xs text-slate-400">
+                        Nhập tên thiết bị và số lượng, ví dụ: Tấm pin LONGi: 6 tấm.
+                      </p>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={addEquipment}
+                      className="inline-flex shrink-0 items-center gap-1.5 rounded-lg border border-amber-200 px-3 py-2 text-xs font-semibold text-amber-600 transition-colors hover:bg-amber-50"
+                    >
+                      <Plus size={14} />
+                      Thêm thiết bị
+                    </button>
+                  </div>
+
+                  {form.equipment.length > 0 ? (
+                    <div className="mt-3 space-y-2">
+                      {form.equipment.map((item, index) => (
+                        <div key={index} className="flex items-center gap-2">
+                          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-amber-50 text-sm font-bold text-amber-600">
+                            {index + 1}
+                          </span>
+                          <input
+                            type="text"
+                            value={item}
+                            onChange={(e) =>
+                              updateEquipment(index, e.target.value)
+                            }
+                            placeholder="Ví dụ: Biến tần Hybrid: 1 bộ"
+                            className={fieldClass}
+                          />
+                          <button
+                            type="button"
+                            onClick={() => removeEquipment(index)}
+                            aria-label={`Xóa thiết bị ${index + 1}`}
+                            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-slate-200 text-slate-400 transition-colors hover:border-red-200 hover:bg-red-50 hover:text-red-500"
+                          >
+                            <Trash2 size={15} />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="mt-3 rounded-lg border border-dashed border-slate-200 bg-slate-50 px-3 py-3 text-center text-xs text-slate-400">
+                      Chưa có thiết bị. Nhấn “Thêm thiết bị” để bổ sung.
+                    </p>
+                  )}
+                </div>
+
+                <div>
                   <label className={labelClass}>
                     Hình ảnh công trình
                   </label>
@@ -788,6 +863,11 @@ const buildInitialForm = (article) => {
     status: article.status || "draft",
     featured: Boolean(article.featured),
     author: article.author || "Nhật Minh",
+    equipment: normalizeEquipment(
+      Array.isArray(article.equipment)
+        ? article.equipment
+        : article.projectInfo?.equipment
+    ),
     projectInfo: { ...EMPTY_FORM.projectInfo, ...(article.projectInfo || {}) },
   };
 };
@@ -805,6 +885,20 @@ const cleanProjectInfo = (info = {}) => {
   });
 
   return Object.keys(cleaned).length ? cleaned : null;
+};
+
+const normalizeEquipment = (equipment) => {
+  if (!Array.isArray(equipment)) return [];
+
+  return equipment
+    .map((item) => (typeof item === "string" ? item : item?.name || ""))
+    .filter(Boolean);
+};
+
+const cleanEquipment = (equipment) => {
+  if (!Array.isArray(equipment)) return [];
+
+  return equipment.map((item) => String(item).trim()).filter(Boolean);
 };
 
 export default AdminArticleEditor;
