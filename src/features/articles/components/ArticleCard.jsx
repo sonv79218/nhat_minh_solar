@@ -1,98 +1,137 @@
-// ============================================
-// ARTICLE CARD
-// Điện Mặt Trời Nhật Minh
-// ============================================
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Calendar, ArrowRight, ImageIcon } from "lucide-react";
-import { formatDate, truncate } from "@/utils/articleUtils";
-import { DEFAULT_CATEGORIES } from "@/features/articles/data/articleCategories";
+import {
+  ArrowUpRight,
+  CalendarDays,
+  ImageIcon,
+  MapPin,
+  Sun,
+} from "lucide-react";
+import { formatDate } from "@/utils/articleUtils";
 
-const getCategoryName = (categorySlug, categories) => {
-  if (!categorySlug) return "Kiến thức";
-  const found = categories.find(
-    (c) => c.slug === categorySlug || c.id === categorySlug || c.name === categorySlug
-  );
-  return found?.name || categorySlug;
-};
-
-const ArticleCard = ({ article, categories = DEFAULT_CATEGORIES }) => {
+const ArticleCard = ({ article, categories = [] }) => {
+  const [imageError, setImageError] = useState(false);
   const {
     slug,
     title,
     excerpt,
     coverImage,
+    address,
+    location,
+    equipment,
     category,
+    type,
     publishedAt,
     createdAt,
-    type,
   } = article;
 
-  const categoryName = getCategoryName(category, categories);
-  const date = publishedAt || createdAt;
+  const detailUrl = `/bai-viet/${slug}`;
+  const projectAddress = address || location;
+  const categoryName =
+    categories.find((item) => (item.slug || item.id) === category)?.name ||
+    (type === "project" ? "Công trình thực tế" : "Kiến thức điện mặt trời");
+
+  const equipmentList = Array.isArray(equipment)
+    ? equipment
+        .map((item) => (typeof item === "string" ? item : item?.name))
+        .filter(Boolean)
+    : [];
+  const hasImage = Boolean(coverImage) && !imageError;
+  const publishedDate = publishedAt || createdAt;
 
   return (
-    <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-amber-200 hover:shadow-xl">
-      {/* Cover */}
+    <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-amber-200 hover:shadow-xl hover:shadow-slate-200/60">
       <Link
-        to={`/bai-viet/${slug}`}
-        className="relative block h-48 overflow-hidden bg-slate-100"
+        to={detailUrl}
+        aria-label={`Đọc bài viết: ${title}`}
+        className="relative block aspect-[16/10] overflow-hidden bg-gradient-to-br from-slate-800 via-slate-700 to-slate-900"
       >
-        {coverImage ? (
+        {hasImage ? (
           <img
             src={coverImage}
-            alt={title}
+            alt=""
             loading="lazy"
             decoding="async"
-            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+            onError={() => setImageError(true)}
+            className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
           />
         ) : (
-          <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-slate-100 to-slate-200">
-            <ImageIcon size={36} className="text-slate-300" />
+          <div className="flex h-full w-full flex-col items-center justify-center gap-2 text-white/40">
+            <ImageIcon size={34} strokeWidth={1.5} />
+            <span className="text-[11px] font-medium uppercase tracking-[0.16em]">
+              Nhật Minh Solar
+            </span>
           </div>
         )}
 
-        {/* Badges */}
-        <div className="absolute left-3 top-3 flex flex-wrap gap-1.5">
-          <span className="rounded-full bg-amber-500 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-white shadow-sm">
-            {categoryName}
-          </span>
-          {type === "project" && (
-            <span className="rounded-full bg-slate-900/85 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-white">
-              Công trình
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-slate-950/10" />
+
+        <span className="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-white/95 px-3 py-1.5 text-[11px] font-bold uppercase tracking-wide text-slate-700 shadow-sm backdrop-blur-sm">
+          <Sun size={13} className="text-amber-500" />
+          {type === "project" ? "Công trình" : "Kiến thức"}
+        </span>
+
+        <span className="absolute bottom-4 left-4 max-w-[calc(100%-2rem)] truncate text-xs font-medium text-white/85">
+          {categoryName}
+        </span>
+      </Link>
+
+      <div className="flex flex-1 flex-col p-5">
+        <div className="mb-3 flex items-center gap-3 text-[11px] font-medium text-slate-400">
+          {publishedDate && (
+            <span className="inline-flex items-center gap-1.5">
+              <CalendarDays size={13} className="text-amber-500" />
+              {formatDate(publishedDate)}
+            </span>
+          )}
+          {projectAddress && (
+            <span className="inline-flex min-w-0 items-center gap-1.5 truncate">
+              <MapPin size={13} className="shrink-0 text-amber-500" />
+              <span className="truncate">{projectAddress}</span>
             </span>
           )}
         </div>
-      </Link>
 
-      {/* Body */}
-      <div className="flex flex-1 flex-col p-5">
-        <div className="mb-2 flex items-center gap-1.5 text-xs text-slate-400">
-          <Calendar size={13} />
-          <span>{formatDate(date)}</span>
-        </div>
-
-        <h3 className="mb-2 line-clamp-2 text-base font-bold leading-snug text-slate-900">
-          <Link
-            to={`/bai-viet/${slug}`}
-            className="transition-colors hover:text-amber-600"
-          >
+        <Link to={detailUrl} className="block">
+          <h3 className="line-clamp-2 text-lg font-bold leading-snug text-slate-900 transition-colors group-hover:text-amber-600">
             {title}
-          </Link>
-        </h3>
+          </h3>
+        </Link>
 
-        <p className="mb-4 line-clamp-3 text-sm leading-relaxed text-slate-500">
-          {truncate(excerpt, 150)}
-        </p>
+        {equipmentList.length > 0 ? (
+          <ul className="mt-4 flex flex-wrap gap-1.5">
+            {equipmentList.slice(0, 3).map((item, index) => (
+              <li
+                key={`${item}-${index}`}
+                title={item}
+                className="max-w-full truncate rounded-md bg-slate-50 px-2.5 py-1 text-[11px] font-medium text-slate-600"
+              >
+                {item}
+              </li>
+            ))}
+            {equipmentList.length > 3 && (
+              <li className="rounded-md bg-amber-50 px-2.5 py-1 text-[11px] font-semibold text-amber-700">
+                +{equipmentList.length - 3}
+              </li>
+            )}
+          </ul>
+        ) : (
+          <p className="mt-3 line-clamp-3 text-sm leading-6 text-slate-500">
+            {excerpt || "Thông tin công trình đang được cập nhật."}
+          </p>
+        )}
 
         <Link
-          to={`/bai-viet/${slug}`}
-          className="mt-auto inline-flex items-center gap-1.5 self-start text-sm font-semibold text-amber-600 transition-colors hover:text-amber-700"
+          to={detailUrl}
+          className="mt-auto flex items-center justify-between border-t border-slate-100 pt-4 text-sm font-bold text-amber-600 transition-colors hover:text-amber-700"
         >
-          Đọc chi tiết
-          <ArrowRight
-            size={15}
-            className="transition-transform group-hover:translate-x-1"
-          />
+          <span>Đọc tiếp</span>
+          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-amber-50 transition-all group-hover:bg-amber-500 group-hover:text-white">
+            <ArrowUpRight
+              size={16}
+              className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+            />
+          </span>
         </Link>
       </div>
     </article>

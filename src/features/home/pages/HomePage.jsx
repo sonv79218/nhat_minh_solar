@@ -58,22 +58,7 @@ const HeroSection = () => {
       description:
         "Chuyên cung cấp và lắp đặt hệ thống điện mặt trời chất lượng cao, tiết kiệm điện lên đến 90% cho gia đình và doanh nghiệp.",
     },
-    {
-      image: "/images/hero/hero-2.webp",
-      title: "Tiết Kiệm Điện Lên Đến 90%",
-      subtitle: "Giảm hóa đơn tiền điện hàng tháng",
-      highlight: "90%",
-      description:
-        "Hệ thống điện mặt trời Hybrid cho phép lưu trữ điện dư thừa, sử dụng ban đêm hoặc khi mất điện.",
-    },
-    {
-      image: "/images/hero/hero-3.webp",
-      title: "Bảo Vệ Môi Trường",
-      subtitle: "Năng lượng xanh - Tương lai bền vững",
-      highlight: "Xanh",
-      description:
-        "Góp phần giảm phát thải CO₂, bảo vệ môi trường và cuộc sống xanh cho cộng đồng.",
-    },
+
   ];
 
   useEffect(() => {

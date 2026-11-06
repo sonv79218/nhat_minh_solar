@@ -122,51 +122,7 @@ const ArticlesPage = () => {
 
   return (
     <div className="bg-slate-50 pb-16">
-      {/* Banner */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
-        <div className="absolute inset-0 opacity-20">
-          <img
-            src="/images/hero/hero-2.webp"
-            alt=""
-            aria-hidden="true"
-            className="h-full w-full object-cover"
-          />
-        </div>
 
-        <div className="relative mx-auto w-full max-w-[1200px] px-4 py-14 sm:px-6 sm:py-20">
-          {/* Breadcrumb */}
-          <nav aria-label="Breadcrumb" className="mb-5">
-            <ol className="flex items-center gap-1.5 text-xs text-white/60">
-              <li>
-                <Link to="/" className="transition-colors hover:text-amber-400">
-                  Trang chủ
-                </Link>
-              </li>
-              <li aria-hidden="true">
-                <ChevronRight size={13} />
-              </li>
-              <li className="font-medium text-white/90">Bài viết</li>
-            </ol>
-          </nav>
-
-          <div className="flex items-center gap-3">
-            <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-amber-500 shadow-lg shadow-amber-500/25">
-              <Sun size={22} className="text-white" />
-            </span>
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-400">
-              Nhật Minh Solar
-            </p>
-          </div>
-
-          <h1 className="mt-4 max-w-3xl text-2xl font-extrabold leading-tight text-white sm:text-3xl md:text-4xl">
-            {PAGE_TITLE}
-          </h1>
-
-          <p className="mt-4 max-w-2xl text-sm leading-relaxed text-white/70 sm:text-base">
-            {PAGE_DESCRIPTION}
-          </p>
-        </div>
-      </section>
 
       {/* Categories */}
       <section className="mx-auto w-full max-w-[1200px] px-4 pt-10 sm:px-6">
