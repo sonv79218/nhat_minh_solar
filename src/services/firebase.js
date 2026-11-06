@@ -1,5 +1,5 @@
 // ============================================
-// FIREBASE CONFIG - NHẬT MINH
+// FIREBASE SERVICE - ĐIỆN MẶT TRỜI NHẬT MINH
 // ============================================
 // Nguồn cấu hình DUY NHẤT của toàn bộ ứng dụng.
 //
@@ -11,21 +11,22 @@
 // Toàn bộ module khác PHẢI import từ đây:
 //   import { db, auth, storage } from "@/services/firebase";
 // Không được gọi initializeApp() / getFirestore(app) / getAuth(app) ở module khác.
+//
+// Tất cả service đều trỏ về project `nhat-minh-solar` — xem
+// `@/config/firebaseConfig` để biết chi tiết cách chọn cấu hình.
 // ============================================
 import { initializeApp, getApps } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { getStorage } from "firebase/storage";
+import {
+  resolveFirebaseConfig,
+  FIREBASE_PROJECT_ID,
+} from "@/config/firebaseConfig";
 
-// Firebase configuration - lấy từ biến môi trường (.env)
-const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "",
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || "",
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || "",
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || "",
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || "",
-  appId: import.meta.env.VITE_FIREBASE_APP_ID || "",
-};
+// Cấu hình Firebase đã resolve (biến môi trường hợp lệ, nếu không thì dùng
+// cấu hình chuẩn của project `nhat-minh-solar`).
+export const firebaseConfig = resolveFirebaseConfig();
 
 // Khởi tạo App DUY NHẤT.
 // getApps() bảo đảm không bao giờ initializeApp() lần thứ hai
@@ -41,5 +42,7 @@ export const auth = getAuth(app);
 // Storage dùng chung (chỉ khởi tạo khi đã cấu hình bucket)
 export const storage = firebaseConfig.storageBucket ? getStorage(app) : null;
 
-export { firebaseConfig };
+// Project ID đang dùng — hữu ích khi cần kiểm tra/log trong lúc debug.
+export { FIREBASE_PROJECT_ID };
+
 export default app;

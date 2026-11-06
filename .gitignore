@@ -14,6 +14,11 @@ dist-ssr
 .env.*
 *.local
 
+# .env.production chỉ chứa cấu hình Firebase Web SDK công khai (API key của
+# Firebase Web là public, không phải secret) — cần commit để Vercel build
+# với đúng project nhat-minh-solar ngay cả khi chưa khai báo env trên Dashboard.
+!.env.production
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

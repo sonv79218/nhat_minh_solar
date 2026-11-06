@@ -20,7 +20,7 @@ import { isPermissionError } from "@/utils/firebaseErrors";
  *
  * @template T
  * @param {import("firebase/firestore").Firestore} firestore - Firestore instance
- * @param {import("firebase/auth").User | null | undefined} user - User hiện tại
+ * @param {import("firebase/auth").User | null | undefined} user - Người dùng hiện tại
  * @param {() => Promise<T>} operation - Thao tác cần thực hiện
  * @returns {Promise<T>}
  */
