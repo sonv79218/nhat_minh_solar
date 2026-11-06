@@ -64,9 +64,12 @@ const stripUndefined = (obj) => {
 /**
  * Lấy danh mục bài viết. Ưu tiên collection Firestore, fallback về danh mục mặc định.
  *
- * Lưu ý: theo Security Rules hiện tại, `article_categories` chỉ cho phép ĐỌC
- * với tài khoản đã đăng nhập. Khách chưa đăng nhập sẽ bị từ chối — vì vậy
- * hàm này fallback về DEFAULT_CATEGORIES thay vì ném lỗi.
+ * Quyền truy cập theo Security Rules:
+ *   - Khách chưa đăng nhập: được đọc danh mục.
+ *   - Tài khoản quản trị/đã đăng nhập: được đọc và ghi danh mục.
+ *
+ * Fallback về DEFAULT_CATEGORIES chỉ dùng khi collection rỗng hoặc Firestore
+ * tạm thời không truy cập được, không phải để thay thế quyền đọc công khai.
  */
 export const getArticleCategories = async () => {
   try {

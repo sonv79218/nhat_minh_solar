@@ -225,10 +225,10 @@ const main = async () => {
     "KHÔNG list toàn bộ bài viết (sẽ lộ draft)",
     () => fsRequest("GET", "/articles")
   );
-  await expectAllowed("đọc danh mục", () =>
+  await expectAllowed("khách được đọc danh mục", () =>
     fsRequest("GET", "/article_categories/cat-1")
   );
-  await expectAllowed("list danh mục", () =>
+  await expectAllowed("khách được list danh mục", () =>
     fsRequest("GET", "/article_categories")
   );
 
@@ -356,8 +356,8 @@ const main = async () => {
     })
   );
 
-  console.log("\n🗂  Danh mục bài viết:");
-  await expectAllowed("tạo danh mục (không cần admin)", () =>
+  console.log("\n🗂  Danh mục bài viết (admin/đã đăng nhập ghi được):");
+  await expectAllowed("tạo danh mục (đã đăng nhập)", () =>
     fsRequest("POST", "/article_categories", {
       token: author.idToken,
       body: {
@@ -368,13 +368,13 @@ const main = async () => {
       },
     })
   );
-  await expectAllowed("sửa danh mục", () =>
+  await expectAllowed("sửa danh mục (đã đăng nhập)", () =>
     fsRequest("PATCH", "/article_categories/cat-1", {
       token: author.idToken,
       body: { fields: { description: { stringValue: "đã sửa" } } },
     })
   );
-  await expectAllowed("xoá danh mục vừa tạo", () =>
+  await expectAllowed("xoá danh mục vừa tạo (đã đăng nhập)", () =>
     fsRequest("DELETE", "/article_categories/danh-muc-tac-gia", {
       token: author.idToken,
     })
