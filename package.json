@@ -11,6 +11,7 @@
     "sitemap": "node scripts/generate-sitemap.mjs",
     "seed:categories": "node scripts/seed-article-categories.mjs",
     "seed:article": "node scripts/seed-sample-article.mjs",
+    "seed:projects": "node scripts/seed-sample-projects.mjs",
     "deploy:rules": "node scripts/deploy-firestore-rules.mjs",
     "verify:firebase": "node scripts/verify-single-firebase.mjs",
     "test:rules": "node scripts/test-security-rules.mjs",
