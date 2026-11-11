@@ -4,7 +4,7 @@
 // Brand sync: white cards, green accent, minimal
 // ============================================
 import { useState, useMemo } from "react";
-import { REGIONS } from "@/features/calculator/data/calculatorData";
+import { REGIONS, getPshByRegion } from "@/features/calculator/data/calculatorData";
 
 export default function StepRegion({ form, update }) {
   const [search, setSearch] = useState("");
@@ -42,21 +42,30 @@ export default function StepRegion({ form, update }) {
       </div>
 
       {/* Selected chip */}
-      {form.province && (
-        <div className="flex items-center gap-2.5 p-3 bg-green-50 border border-green-100 rounded-lg">
-          <div className="w-1.5 h-1.5 rounded-full bg-green-500" />
-          <p className="text-sm font-medium text-slate-700 flex-1">{form.province}</p>
-          <span className="text-xs text-green-600 font-medium">{form.region}</span>
-          <button
-            onClick={() => { update("regionId", ""); update("region", ""); update("province", ""); }}
-            className="text-slate-400 hover:text-slate-600 transition-colors"
-          >
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-              <path d="M12 4L4 12M4 4l8 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-            </svg>
-          </button>
-        </div>
-      )}
+      {form.province && (() => {
+        const { psh, source } = getPshByRegion(form.regionId, form.province);
+        return (
+          <div className="p-3 bg-green-50 border border-green-100 rounded-lg space-y-2">
+            <div className="flex items-center gap-2.5">
+              <div className="w-1.5 h-1.5 rounded-full bg-green-500" />
+              <p className="text-sm font-medium text-slate-700 flex-1">{form.province}</p>
+              <span className="text-xs text-green-600 font-medium">{form.region}</span>
+              <button
+                onClick={() => { update("regionId", ""); update("region", ""); update("province", ""); }}
+                className="text-slate-400 hover:text-slate-600 transition-colors"
+              >
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                  <path d="M12 4L4 12M4 4l8 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                </svg>
+              </button>
+            </div>
+            <p className="text-xs text-slate-500">
+              ☀️ Giờ nắng đỉnh (PSH): <strong className="text-green-700">{psh} h/ngày</strong>
+              <span className="text-slate-400"> — {source}</span>
+            </p>
+          </div>
+        );
+      })()}
 
       {/* Region list */}
       <div className="space-y-2">

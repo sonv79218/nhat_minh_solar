@@ -13,12 +13,14 @@ const PHASE_OPTS = [
 const getDesc = (night) => {
   if (night <= 20) return "Bạn chủ yếu dùng điện ban ngày — rất lý tưởng cho hệ On-grid.";
   if (night <= 40) return "Phân bổ khá đều ngày và đêm — hệ On-grid vẫn phù hợp.";
-  if (night <= 60) return "Dùng khá nhiều điện ban đêm — hệ Hybrid được khuyến nghị.";
-  return "Tỷ lệ dùng điện ban đêm cao. Nên cân nhắc hệ Hybrid để lưu trữ điện.";
+  if (night <= 60) return "Dùng khá nhiều điện ban đêm — nên cân nhắc hệ Hybrid có pin lưu trữ.";
+  return "Tỷ lệ dùng điện ban đêm cao. Nên chuyển sang hệ Hybrid để lưu trữ điện dùng ban đêm.";
 };
 
 export default function StepUsage({ form, update }) {
-  const nightRatio = form.dayNightRatio ?? 40;
+  // Quy ước duy nhất toàn app: dayNightRatio = tỷ lệ BAN ĐÊM (%).
+  // Ban ngày = 100% - Ban đêm. Slider điều khiển ban đêm.
+  const nightRatio = form.dayNightRatio ?? 60;
   const dayRatio = 100 - nightRatio;
 
   const handleSlider = (val) => update("dayNightRatio", parseInt(val, 10));
@@ -54,7 +56,7 @@ export default function StepUsage({ form, update }) {
         {/* Range slider */}
         <div className="space-y-2">
           <div className="flex items-center gap-3">
-            <span className="text-xs text-green-600 font-semibold w-10">☀️ {dayRatio}%</span>
+            <span className="text-xs text-green-600 font-semibold w-14">☀️ Ngày {dayRatio}%</span>
             <input
               type="range"
               min="0"
@@ -64,11 +66,14 @@ export default function StepUsage({ form, update }) {
               onChange={(e) => handleSlider(e.target.value)}
               className="flex-1 h-2 rounded-full accent-green-500 cursor-pointer"
               style={{
-                background: `linear-gradient(to right, #16a34a ${nightRatio}%, #1e293b ${nightRatio}%)`,
+                background: `linear-gradient(to right, #16a34a ${dayRatio}%, #1e293b ${dayRatio}%)`,
               }}
             />
-            <span className="text-xs text-slate-400 font-semibold w-10 text-right">🌙 {nightRatio}%</span>
+            <span className="text-xs text-slate-400 font-semibold w-14 text-right">🌙 Đêm {nightRatio}%</span>
           </div>
+          <p className="text-[11px] text-slate-400 text-center">
+            Kéo sang phải để tăng tỷ lệ dùng điện ban đêm (ban ngày giảm tương ứng)
+          </p>
         </div>
 
         {/* Description */}

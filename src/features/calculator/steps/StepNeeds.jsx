@@ -36,6 +36,7 @@ const MAIN_NEEDS = [
 ];
 
 const EXTRA_OPTS = [
+  { id: "hasBackup", label: "Cần điện dự phòng", sub: "Muốn có điện khi mất lưới" },
   { id: "frequentBlackouts", label: "Thường xuyên mất điện", sub: "Khu vực hay cắt điện luân phiên" },
   { id: "expandLoad", label: "Có nhu cầu mở rộng tải", sub: "Lắp thêm thiết bị trong tương lai" },
   { id: "hasEv", label: "Có xe điện hoặc dự định mua", sub: "Ô tô, xe máy điện" },
@@ -110,6 +111,28 @@ export default function StepNeeds({ form, update }) {
             );
           })}
         </div>
+      </div>
+      {/* Future reserve */}
+      <div>
+        <p className="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-3">
+          Dự phòng nhu cầu tương lai: {form.futureReservePct || 0}%
+        </p>
+        <div className="flex items-center gap-3">
+          <span className="text-xs text-slate-400 font-semibold w-10">0%</span>
+          <input
+            type="range"
+            min="0"
+            max="50"
+            step="5"
+            value={form.futureReservePct || 0}
+            onChange={(e) => update("futureReservePct", parseInt(e.target.value, 10))}
+            className="flex-1 h-2 rounded-full accent-green-500 cursor-pointer"
+          />
+          <span className="text-xs text-slate-400 font-semibold w-10 text-right">50%</span>
+        </div>
+        <p className="mt-2 text-xs text-slate-500 leading-relaxed">
+          Điện mục tiêu/ngày = điện hiện tại/ngày × (1 + dự phòng). Dùng khi sắp lắp thêm thiết bị, mở rộng nhà xưởng.
+        </p>
       </div>
     </div>
   );

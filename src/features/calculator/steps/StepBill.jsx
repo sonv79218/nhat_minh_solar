@@ -4,6 +4,10 @@
 // Brand sync: green accent, clean white cards
 // ============================================
 import { useState } from "react";
+import {
+  calculateMonthlyKwhFromBill,
+  calculateDailyConsumption,
+} from "@/features/calculator/data/calculatorData";
 
 const BUILDING_TYPES = [
   { id: "Home", label: "Gia đình", desc: "Nhà ở, căn hộ" },
@@ -114,11 +118,21 @@ export default function StepBill({ form, update }) {
           <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm text-slate-400 font-medium">VNĐ</span>
         </div>
 
-        {form.monthlyBill > 0 && (
-          <p className="mt-2 text-sm text-green-600 font-medium">
-            ✓ {new Intl.NumberFormat("vi-VN").format(form.monthlyBill)} VNĐ / tháng
-          </p>
-        )}
+        {form.monthlyBill > 0 && (() => {
+          const kwh = calculateMonthlyKwhFromBill(form.monthlyBill);
+          const daily = calculateDailyConsumption(kwh);
+          return (
+            <div className="mt-2 p-3 bg-green-50 border border-green-100 rounded-lg space-y-1">
+              <p className="text-sm text-green-600 font-medium">
+                ✓ {new Intl.NumberFormat("vi-VN").format(form.monthlyBill)} VNĐ / tháng
+              </p>
+              <p className="text-xs text-slate-600">
+                ≈ <strong>{kwh.toLocaleString("vi-VN")} kWh/tháng</strong>
+                {" "}(≈ <strong>{daily} kWh/ngày</strong>) theo biểu giá 5 bậc + VAT 8%
+              </p>
+            </div>
+          );
+        })()}
       </div>
     </div>
   );

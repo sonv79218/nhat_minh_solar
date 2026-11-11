@@ -26,8 +26,10 @@ const DEFAULT_FORM = {
   monthlyBill: "", buildingType: "Home",
   needs: "", hasBackup: false, hasEv: false,
   frequentBlackouts: false, expandLoad: false,
+  futureReservePct: 0,
   roofType: "", roofArea: "", shading: "",
-  dayNightRatio: 40, systemPhase: "",
+  panelWatt: 620,
+  dayNightRatio: 60, systemPhase: "",
 };
 
 export default function SolarCalculatorPage() {

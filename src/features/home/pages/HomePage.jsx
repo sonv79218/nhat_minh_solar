@@ -25,10 +25,6 @@ import LatestArticlesSection from "@/features/home/components/LatestArticlesSect
 import { useState, useEffect,  } from "react";
 import { motion } from "framer-motion";
 import {
-  Zap,
-  Leaf,
-  ShieldCheck,
-  Clock,
   Phone,
   ArrowRight,
   Star,
@@ -132,94 +128,6 @@ const HeroSection = () => {
     </section>
   );
 };
-
-// ============================================
-// WHY SOLAR SECTION
-// ============================================
-const WhySolarSection = () => {
-  const benefits = [
-    {
-      icon: Zap,
-      title: "Tiết kiệm chi phí",
-      desc: "Giảm 50-90% hóa đơn điện hàng tháng ngay sau khi lắp đặt.",
-      color: "from-amber-400 to-amber-500",
-      bg: "bg-amber-50",
-      text: "text-amber-600",
-    },
-    {
-      icon: Leaf,
-      title: "Thân thiện môi trường",
-      desc: "Năng lượng sạch, không phát thải, góp phần bảo vệ trái đất.",
-      color: "from-emerald-400 to-emerald-500",
-      bg: "bg-emerald-50",
-      text: "text-emerald-600",
-    },
-    {
-      icon: ShieldCheck,
-      title: "An toàn & bền bỉ",
-      desc: "Hệ thống được bảo hành lên đến 10 năm, tuổi thọ trên 25 năm.",
-      color: "from-blue-400 to-blue-500",
-      bg: "bg-blue-50",
-      text: "text-blue-600",
-    },
-    {
-      icon: Clock,
-      title: "Tự động hoàn toàn",
-      desc: "Hệ thống vận hành tự động, không cần bảo trì thường xuyên.",
-      color: "from-purple-400 to-purple-500",
-      bg: "bg-purple-50",
-      text: "text-purple-600",
-    },
-  ];
-
-return (
-  <section className="bg-white py-7 sm:py-9 md:py-10">
-    <div className="mx-auto w-full max-w-[1200px] px-4 sm:px-6">
-      <SectionEyebrow
-        label="Tại sao chọn điện mặt trời"
-        className="mb-5 sm:mb-7 md:mb-10"
-      />
-
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-2 sm:gap-5 lg:grid-cols-4 md:gap-6">
-        {benefits.map((item, index) => {
-          const Icon = item.icon;
-
-          return (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.35, delay: index * 0.08 }}
-              className="group rounded-xl border border-slate-100 bg-white p-3.5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg sm:rounded-2xl sm:p-6"
-            >
-              <div
-                className={`mb-3 flex h-9 w-9 items-center justify-center rounded-lg ${item.bg} transition-transform duration-300 group-hover:scale-110 sm:mb-5 sm:h-12 sm:w-12 sm:rounded-xl`}
-              >
-                <Icon
-                  size={19}
-                  className={item.text}
-                  strokeWidth={1.8}
-                />
-              </div>
-
-              <h3 className="mb-1 text-sm font-bold leading-snug text-slate-900 sm:mb-2 sm:text-base">
-                {item.title}
-              </h3>
-
-              <p className="line-clamp-3 text-[11px] leading-4 text-slate-500 sm:text-sm sm:leading-relaxed">
-                {item.desc}
-              </p>
-            </motion.div>
-          );
-        })}
-      </div>
-    </div>
-  </section>
-);
-};
-
-
 
 // ============================================
 // PROCESS SECTION

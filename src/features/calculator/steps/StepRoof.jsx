@@ -4,6 +4,7 @@
 // Brand sync: green accent, clean white cards
 // ============================================
 import { useState } from "react";
+import { PANEL_OPTIONS, SYSTEM_CONFIG } from "@/features/calculator/data/calculatorData";
 
 const ROOF_TYPES = [
   { id: "Tôn", label: "Mái tôn", desc: "Nhà xưởng, nhà ở" },
@@ -23,6 +24,9 @@ const AREA_PRESETS = [20, 40, 60, 80, 100];
 
 export default function StepRoof({ form, update }) {
   const [areaInput, setAreaInput] = useState(form.roofArea ? form.roofArea.toString() : "");
+  const panelWatt = form.panelWatt || 620;
+  const panelDef = PANEL_OPTIONS.find((p) => p.watt === panelWatt) || PANEL_OPTIONS[2];
+  const panelArea = panelDef.area || SYSTEM_CONFIG.panelAreaEach;
 
   const adjustArea = (delta) => {
     const cur = parseInt(areaInput, 10) || 0;
@@ -39,8 +43,8 @@ export default function StepRoof({ form, update }) {
   };
 
   const roofArea = parseInt(areaInput, 10) || 0;
-  const estPanels = Math.floor(roofArea / 2.2);
-  const estCap = ((estPanels * 550) / 1000).toFixed(1);
+  const estPanels = Math.floor(roofArea / panelArea);
+  const estCap = ((estPanels * panelWatt) / 1000).toFixed(1);
 
   return (
     <div className="space-y-6">
@@ -132,10 +136,38 @@ export default function StepRoof({ form, update }) {
               <circle cx="12" cy="12" r="5"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
             </svg>
             <p className="text-xs text-blue-700">
-              Ước tính: <strong>{estCap} kWp</strong> ({estPanels} tấm pin @ 550Wp)
+              Ước tính: <strong>{estCap} kWp</strong> ({estPanels} tấm pin @ {panelWatt}Wp)
             </p>
           </div>
         )}
+      </div>
+
+      {/* Panel wattage */}
+      <div>
+        <p className="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-3">
+          Công suất tấm pin
+        </p>
+        <div className="grid grid-cols-4 gap-2">
+          {PANEL_OPTIONS.map(({ watt, label }) => {
+            const active = panelWatt === watt;
+            return (
+              <button
+                key={watt}
+                onClick={() => update("panelWatt", watt)}
+                className={`py-2.5 rounded-lg text-xs font-semibold border-2 transition-all ${
+                  active
+                    ? "border-green-400 bg-green-500 text-white"
+                    : "border-slate-200 bg-white text-slate-600 hover:border-slate-300"
+                }`}
+              >
+                {label}
+              </button>
+            );
+          })}
+        </div>
+        <p className="mt-2 text-xs text-slate-500">
+          Diện tích mỗi tấm: ~{panelArea} m². Diện tích mái cần = số tấm × {panelArea} m² × 1.1 (dự phòng lối đi).
+        </p>
       </div>
 
       {/* Shading */}

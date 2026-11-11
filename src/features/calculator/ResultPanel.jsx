@@ -2,29 +2,31 @@
 // SOLAR CALCULATOR — RESULT PANEL
 // Điện Mặt Trời Nhật Minh
 // Brand sync: dark navy header + white card dashboard
+// Dữ liệu 100% tính động từ calculateSolution()
 // ============================================
 import { useMemo } from "react";
 import { calculateSolution } from "@/features/calculator/data/calculatorData";
 
 const fmt = (n) => new Intl.NumberFormat("vi-VN").format(n);
-const fmtShort = (n) => {
-  if (!n) return "—";
-  if (n >= 1e9) return `${(n / 1e9).toFixed(1)} tỷ`;
-  if (n >= 1e6) return `${Math.round(n / 1e6)} triệu`;
-  return fmt(n);
-};
+const fmt2 = (n) => new Intl.NumberFormat("vi-VN", { maximumFractionDigits: 2 }).format(n);
 
 // ── Stat Card ──────────────────────────────────────
-const StatCard = ({ label, value, sub, highlight }) => (
-  <div className={`rounded-xl border p-4 ${highlight ? "bg-green-50 border-green-200" : "bg-white border-slate-100"}`}>
+const StatCard = ({ label, value, sub, highlight, danger }) => (
+  <div className={`rounded-xl border p-4 ${
+    danger ? "bg-red-50 border-red-200"
+      : highlight ? "bg-green-50 border-green-200"
+      : "bg-white border-slate-100"
+  }`}>
     <p className="text-[11px] font-semibold uppercase tracking-widest text-slate-400 mb-1.5">{label}</p>
-    <p className={`text-xl font-extrabold leading-tight ${highlight ? "text-green-700" : "text-slate-900"}`}>{value}</p>
+    <p className={`text-xl font-extrabold leading-tight ${
+      danger ? "text-red-700" : highlight ? "text-green-700" : "text-slate-900"
+    }`}>{value}</p>
     {sub && <p className="text-xs text-slate-400 mt-0.5">{sub}</p>}
   </div>
 );
 
 // ── System type badge ──────────────────────────────
-const SystemBadge = ({ info, type }) => (
+const SystemBadge = ({ info }) => (
   <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-bold ${info.color}`}>
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
       <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
@@ -50,46 +52,25 @@ const WarningItem = ({ warning }) => {
   );
 };
 
-// ── Payback bar chart ──────────────────────────────
-const PaybackChart = ({ data, paybackYears, systemCost }) => {
-  const max = systemCost * 1.4;
-  return (
-    <div>
-      <div className="flex items-end gap-1 h-28">
-        {data.map(({ year, savings }) => {
-          const h = Math.min((savings / max) * 100, 100);
-          const be = year >= paybackYears;
-          return (
-            <div key={year} className="flex flex-col items-center flex-1 gap-1">
-              <div className="w-full flex flex-col-reverse">
-                <div
-                  className={`w-full rounded-t-sm transition-all duration-500 ${
-                    be ? "bg-green-400" : "bg-slate-300"
-                  }`}
-                  style={{ height: `${Math.max(h, 3)}%` }}
-                />
-              </div>
-              <span className="text-[9px] text-slate-400">năm {year}</span>
-            </div>
-          );
-        })}
-      </div>
-      <div className="flex items-center gap-4 mt-2 text-xs text-slate-400">
-        <span className="flex items-center gap-1.5">
-          <div className="w-2.5 h-2 rounded-sm bg-slate-300" />
-          Chi phí đầu tư
-        </span>
-        <span className="flex items-center gap-1.5">
-          <div className="w-2.5 h-2 rounded-sm bg-green-400" />
-          Lợi nhuận tích lũy
-        </span>
-        <span className="ml-auto font-semibold text-green-600">
-          Hoàn vốn: năm {paybackYears}
-        </span>
-      </div>
+// ── Section card ────────────────────────────────────
+const Section = ({ title, subtitle, children, cols = 3 }) => (
+  <div className="bg-white rounded-xl border border-slate-100 p-5">
+    <h3 className="text-sm font-bold text-slate-800 mb-1">{title}</h3>
+    {subtitle && <p className="text-xs text-slate-400 mb-4">{subtitle}</p>}
+    {!subtitle && <div className="mb-4" />}
+    <div className={`grid gap-3 grid-cols-1 sm:grid-cols-2 ${cols === 3 ? "lg:grid-cols-3" : "lg:grid-cols-2"}`}>
+      {children}
     </div>
-  );
-};
+  </div>
+);
+
+// ── Detail row (bảng thông số) ─────────────────────
+const DetailRow = ({ label, value, strong }) => (
+  <div className="flex items-center justify-between text-xs py-1">
+    <span className="text-slate-400">{label}</span>
+    <span className={`font-medium ${strong ? "text-slate-900 font-bold" : "text-slate-600"}`}>{value}</span>
+  </div>
+);
 
 // ── Input summary ─────────────────────────────────
 const InputSummary = ({ form }) => {
@@ -100,10 +81,12 @@ const InputSummary = ({ form }) => {
     { label: "Loại công trình", value: buildingMap[form.buildingType] || "—" },
     { label: "Tiền điện/tháng", value: form.monthlyBill ? `${fmt(form.monthlyBill)} VNĐ` : "—" },
     { label: "Mục tiêu", value: needsMap[form.needs] || "—" },
+    { label: "Dự phòng tương lai", value: `${form.futureReservePct || 0}%` },
     { label: "Loại mái", value: form.roofType || "—" },
     { label: "Diện tích mái", value: form.roofArea ? `${form.roofArea} m²` : "—" },
     { label: "Che bóng", value: form.shading || "—" },
-    { label: "Ngày / Đêm", value: `${100 - (form.dayNightRatio ?? 40)}% / ${form.dayNightRatio ?? 40}%` },
+    { label: "Tấm pin", value: `${form.panelWatt || 620}Wp` },
+    { label: "Ngày / Đêm", value: `${100 - (form.dayNightRatio ?? 60)}% / ${form.dayNightRatio ?? 60}%` },
     { label: "Hệ thống điện", value: form.systemPhase || "—" },
   ];
   return (
@@ -122,6 +105,10 @@ const InputSummary = ({ form }) => {
 export default function ResultPanel({ form, onReset, onBack }) {
   const r = useMemo(() => calculateSolution(form), [form]);
 
+  const savingsNote = r.monthlySavings > 0
+    ? `Ước tính giảm ~${fmt(r.monthlySavings)} VNĐ/tháng (~${fmt(r.annualSavings)} VNĐ/năm) theo sản lượng điện mặt trời.`
+    : "Chưa đủ dữ liệu để ước tính tiết kiệm.";
+
   return (
     <div className="space-y-6">
       {/* ── Header strip ── */}
@@ -129,56 +116,122 @@ export default function ResultPanel({ form, onReset, onBack }) {
         <div className="px-6 py-5 border-b border-white/5">
           <div className="flex items-center gap-2 mb-1">
             <div className="w-1.5 h-1.5 rounded-full bg-green-400" />
-            <span className="text-xs font-semibold text-green-400 uppercase tracking-widest">Kết quả cá nhân hóa</span>
+            <span className="text-xs font-semibold text-green-400 uppercase tracking-widest">Kết quả tính toán</span>
           </div>
           <h2 className="text-xl font-extrabold text-white leading-tight">
-            Giải pháp phù hợp<br />dự kiến cho bạn
+            Cấu hình điện mặt trời<br />đề xuất cho bạn
           </h2>
           <p className="text-xs text-white/40 mt-1.5">
-            Dựa trên thông tin đã cung cấp · {form.province}
+            Tính động theo dữ liệu đã nhập · {form.province || "Chưa chọn khu vực"}
           </p>
         </div>
 
         <div className="px-6 py-5">
           {/* System type */}
           <div className="mb-5">
-            <SystemBadge info={r.systemTypeInfo} type={r.systemType} />
+            <SystemBadge info={r.systemTypeInfo} />
+            <p className="text-xs text-white/50 mt-2 leading-relaxed">{r.systemReason}</p>
           </div>
 
           {/* Primary stats */}
           <div className="grid grid-cols-2 gap-3">
             <StatCard
-              label="Công suất"
-              value={`${r.capacityKw} kWp`}
-              sub={`${r.panelCount} tấm pin`}
+              label="Tổng công suất"
+              value={`${fmt2(r.capacityKw)} kWp`}
+              sub={`${r.panelCount} tấm pin @ ${r.panelWatt}Wp`}
               highlight
             />
             <StatCard
               label="Pin lưu trữ"
-              value={r.batteryCapacity > 0 ? `${r.batteryCapacity} kWh` : "Không cần"}
-              sub={r.batteryCapacity > 0 ? "Hệ Hybrid / Off-grid" : "Hệ On-grid"}
+              value={r.hasBattery ? `${r.batterySuggested} kWh` : "Không cần"}
+              sub={r.hasBattery
+                ? `Dùng thực tế ~${fmt2(r.batteryUsable)} kWh`
+                : "Hệ On-grid — không có dự phòng"}
             />
             <StatCard
-              label="Chi phí dự kiến"
-              value={fmtShort(r.systemCost)}
-              sub="Bao gồm lắp đặt"
-              highlight
+              label="Chi phí đầu tư"
+              value="Liên hệ khảo sát"
+              sub="Chưa có bảng giá thiết bị chính thức"
             />
             <StatCard
-              label="Tiết kiệm / năm"
-              value={fmtShort(r.annualSavings)}
-              sub={`~${fmtShort(r.monthlySavings)}/tháng`}
+              label="Tiết kiệm ước tính"
+              value={r.monthlySavings > 0 ? `${fmt(r.monthlySavings)} ₫` : "—"}
+              sub="Mỗi tháng theo sản lượng dự kiến"
             />
           </div>
         </div>
       </div>
 
-      {/* ── Secondary stats ── */}
-      <div className="grid grid-cols-3 gap-3">
-        <StatCard label="Sản lượng/năm" value={`${r.annualProduction.toLocaleString()} kWh`} sub={`${r.monthlyProduction.toLocaleString()} kWh/tháng`} />
-        <StatCard label="Hoàn vốn" value={`${r.paybackYears} năm`} sub="Dự kiến" />
-        <StatCard label="Diện tích mái" value={`${r.roofAreaNeeded} m²`} sub="Tấm 550Wp" />
-      </div>
+      {/* ── A. Thông số hệ thống ── */}
+      <Section title="A. Thông số hệ thống" subtitle="Cấu hình giàn pin và thiết bị đề xuất">
+        <StatCard label="Loại hệ thống" value={r.systemTypeInfo.label} sub={r.systemTypeInfo.description} highlight />
+        <StatCard label="Công suất giàn pin" value={`${fmt2(r.capacityKw)} kWp`} sub={`Yêu cầu tối thiểu: ${fmt2(r.requiredKw)} kWp`} />
+        <StatCard label="Công suất mỗi tấm" value={`${r.panelWatt} Wp`} sub={`Diện tích ~${r.panelAreaEach} m²/tấm`} />
+        <StatCard label="Số lượng tấm pin" value={`${r.panelCount} tấm`} sub="Làm tròn lên để đủ công suất" />
+        <StatCard
+          label="Diện tích mái cần thiết"
+          value={`${fmt2(r.roofAreaNeeded)} m²`}
+          sub={r.roofAreaAvailable > 0 ? `Mái hiện có: ${r.roofAreaAvailable} m²` : "Chưa nhập diện tích mái"}
+          danger={!r.roofOk}
+        />
+        <StatCard
+          label="Dung lượng pin lưu trữ"
+          value={r.hasBattery ? `${r.batterySuggested} kWh` : "Không cần"}
+          sub={r.hasBattery
+            ? `Tính toán: ${fmt2(r.batteryNominal)} kWh · dùng được ~${fmt2(r.batteryUsable)} kWh`
+            : "Chỉ cần khi muốn dự phòng"}
+        />
+        <StatCard label="Công suất biến tần" value={`${fmt2(r.inverterKw)} kW`} sub="Cần khảo sát tải thực tế" />
+        <StatCard label="Số pha" value={r.phases || "—"} sub="Hệ thống điện hiện tại" />
+      </Section>
+
+      {/* ── B. Nhu cầu điện ── */}
+      <Section title="B. Nhu cầu điện" subtitle="Quy đổi từ hóa đơn thực tế theo biểu giá 5 bậc + VAT 8%">
+        <StatCard label="Tiền điện hiện tại/tháng" value={`${fmt(r.monthlyBill)} ₫`} sub="Số tiền khách hàng nhập" />
+        <StatCard label="Điện tiêu thụ/tháng" value={`${fmt2(r.monthlyKwh)} kWh`} sub={`~${fmt(r.avgPricePerKwh)} ₫/kWh trung bình`} />
+        <StatCard label="Điện tiêu thụ/ngày" value={`${fmt2(r.dailyKwh)} kWh`} sub="Tính trên 30 ngày/tháng" />
+        <StatCard
+          label="Điện mục tiêu/ngày"
+          value={`${fmt2(r.targetDailyKwh)} kWh`}
+          sub={r.reservePct > 0 ? `Đã cộng dự phòng ${r.reservePct}%` : "Dự phòng 0%"}
+          highlight
+        />
+        <StatCard label="Điện ban ngày" value={`${fmt2(r.dayKwh)} kWh`} sub={`${r.dayRatio}% tổng nhu cầu`} />
+        <StatCard label="Điện ban đêm" value={`${fmt2(r.nightKwh)} kWh`} sub={`${r.nightRatio}% tổng nhu cầu`} />
+      </Section>
+
+      {/* ── C. Hiệu quả dự kiến ── */}
+      <Section title="C. Hiệu quả dự kiến" subtitle={`PSH ${fmt2(r.psh)} h/ngày (${r.pshSource}) · hiệu suất ${Math.round(r.systemEfficiency * 100)}% · che bóng ×${r.shadingFactor}`}>
+        <StatCard label="Sản lượng/ngày" value={`${fmt2(r.dailyProduction)} kWh`} sub="Tính trên công suất thực tế" highlight />
+        <StatCard label="Sản lượng/tháng" value={`${fmt2(r.monthlyProduction)} kWh`} sub="Trên 30 ngày" />
+        <StatCard label="Sản lượng/năm" value={`${fmt2(r.annualProduction)} kWh`} sub="Trên 365 ngày" />
+        <StatCard
+          label="Tỷ lệ đáp ứng nhu cầu"
+          value={`${fmt2(r.coverageRatio)}%`}
+          sub={`Điện mục tiêu ${fmt2(r.targetDailyKwh)} kWh/ngày`}
+          danger={r.coverageRatio < 100}
+        />
+        <StatCard label="Giờ nắng đỉnh (PSH)" value={`${fmt2(r.psh)} h/ngày`} sub={r.pshSource} />
+        <StatCard label="Tiết kiệm ước tính" value={`${fmt(r.monthlySavings)} ₫/tháng`} sub={savingsNote} />
+      </Section>
+
+      {/* ── D. Chi phí ── */}
+      <Section title="D. Chi phí & khả năng hoàn vốn" subtitle="Cần bảng giá thiết bị chính thức để tính" cols={2}>
+        <div className="rounded-xl border border-slate-100 bg-slate-50 p-4">
+          <p className="text-[11px] font-semibold uppercase tracking-widest text-slate-400 mb-1.5">Chi phí đầu tư</p>
+          <p className="text-xl font-extrabold text-slate-700 leading-tight">Liên hệ khảo sát / báo giá</p>
+          <p className="text-xs text-slate-400 mt-0.5">
+            Chưa có bảng giá thiết bị thực tế — không tạo giá giả định. Nhân viên Nhật Minh sẽ báo giá sau khảo sát.
+          </p>
+        </div>
+        <div className="rounded-xl border border-slate-100 bg-slate-50 p-4">
+          <p className="text-[11px] font-semibold uppercase tracking-widest text-slate-400 mb-1.5">Thời gian hoàn vốn</p>
+          <p className="text-xl font-extrabold text-slate-700 leading-tight">Chờ báo giá</p>
+          <p className="text-xs text-slate-400 mt-0.5">
+            Thời gian hoàn vốn phụ thuộc giá thiết bị và chi phí lắp đặt thực tế — sẽ tính khi có bảng giá.
+          </p>
+        </div>
+      </Section>
 
       {/* ── Why this solution ── */}
       <div className="bg-green-50 border border-green-100 rounded-xl p-5">
@@ -186,15 +239,14 @@ export default function ResultPanel({ form, onReset, onBack }) {
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M9 18l6-6-6-6"/>
           </svg>
-          Tại sao hệ thống này phù hợp?
+          Tại sao cấu hình này phù hợp?
         </h3>
         <ul className="space-y-2">
           {[
-            `Hệ ${r.systemTypeInfo.label} phù hợp với mục tiêu "${form.needs === "reduce" ? "giảm tiền điện" : form.needs === "backup" ? "có điện dự phòng" : "kết hợp cả hai"}" của bạn.`,
-            `Công suất ${r.capacityKw} kWp giúp tiết kiệm ~${fmtShort(r.monthlySavings)}/tháng (${fmtShort(r.annualSavings)}/năm).`,
-            r.paybackYears <= 5
-              ? `Thời gian hoàn vốn chỉ ${r.paybackYears} năm — rất hợp lý cho đầu tư điện mặt trời.`
-              : `Sau khi hoàn vốn (${r.paybackYears} năm), điện gần như miễn phí trong 20-25 năm tới.`,
+            r.systemReason,
+            `Từ hóa đơn ${fmt(r.monthlyBill)} ₫, lượng điện ước tính ${fmt2(r.monthlyKwh)} kWh/tháng (${fmt2(r.dailyKwh)} kWh/ngày).`,
+            `Với PSH ${fmt2(r.psh)} h/ngày và hiệu suất ${Math.round(r.systemEfficiency * 100)}%, cần ${fmt2(r.requiredKw)} kWp → ${r.panelCount} tấm ${r.panelWatt}Wp cho ${fmt2(r.capacityKw)} kWp thực tế.`,
+            `Diện tích mái cần ~${fmt2(r.roofAreaNeeded)} m² (đã tính 1.1 dự phòng lối đi),${r.hasBattery ? ` pin lưu trữ ${r.batterySuggested} kWh cho tải ban đêm ${fmt2(r.nightKwh)} kWh/ngày.` : " không cần pin lưu trữ vì không có nhu cầu dự phòng."}`,
           ].map((item, i) => (
             <li key={i} className="text-xs text-green-700 flex items-start gap-2">
               <span className="text-green-500 flex-shrink-0 mt-0.5">✓</span>
@@ -207,20 +259,10 @@ export default function ResultPanel({ form, onReset, onBack }) {
       {/* ── Warnings ── */}
       {r.warnings.length > 0 && (
         <div className="space-y-2">
+          <h3 className="text-sm font-bold text-slate-800">Lưu ý & cảnh báo</h3>
           {r.warnings.map((w, i) => <WarningItem key={i} warning={w} />)}
         </div>
       )}
-
-      {/* ── Payback chart ── */}
-      <div className="bg-white rounded-xl border border-slate-100 p-5">
-        <h3 className="text-sm font-bold text-slate-800 mb-1">Biểu đồ hoàn vốn theo thời gian</h3>
-        <p className="text-xs text-slate-400 mb-4">Chi phí đầu tư vs. Lợi nhuận tích lũy</p>
-        <PaybackChart
-          data={r.paybackChart}
-          paybackYears={r.paybackYears}
-          systemCost={r.systemCost}
-        />
-      </div>
 
       {/* ── Input summary (collapsible) ── */}
       <details className="group bg-white rounded-xl border border-slate-100">
@@ -242,7 +284,7 @@ export default function ResultPanel({ form, onReset, onBack }) {
           className="flex items-center justify-center gap-2.5 w-full h-12 bg-green-500 hover:bg-green-600 text-white font-bold text-sm rounded-lg transition-colors shadow-sm"
         >
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.37 2 2 0 0 1 3.6 1.18h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 16z"/>
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.37 2 2 0 0 1 3.6 1.18h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 12.84 12.84 0 0 0-.45 2.11L7.91 8.96a16 16 0 0 0 6 6l.91-.91a12.84 12.84 0 0 0 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 16z"/>
           </svg>
           Nhận báo giá chi tiết
         </a>
