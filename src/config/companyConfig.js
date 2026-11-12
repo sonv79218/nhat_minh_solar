@@ -53,9 +53,11 @@ export const company = {
 // ============================================
 export const social = {
   // TODO: thay bằng trang Fanpage chính thức
-  facebook: "",
+  facebook: "https://zalo.me/0876906668",
+  // TODO: thay bằng kênh YouTube chính thức
+  youtube: "https://zalo.me/0876906668",
   // TODO: thay bằng kênh TikTok chính thức
-  tiktok: "",
+  tiktok: "https://zalo.me/0876906668",
   // Đã có sẵn từ website (số hotline)
   zalo: "https://zalo.me/0876906668",
 };
